@@ -9,7 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 import { interval as observableInterval } from 'rxjs';
 import { takeWhile, scan, tap } from 'rxjs/operators';
-
+import { ApiServiceService } from './api-service.service';
 
 
 @Component({
@@ -29,7 +29,8 @@ import { takeWhile, scan, tap } from 'rxjs/operators';
         ])
       ]
     )
-  ]
+  ],
+  providers: [ApiServiceService]
 })
 export class HomePageComponent implements OnInit {
   @ViewChild('fullpageRef') fp_directive: ElementRef;
@@ -38,7 +39,7 @@ export class HomePageComponent implements OnInit {
   disableMenu: any = false;
   visible = false;
   searchField = new FormControl();
-  orginalList: string[] = ['game0', 'game1', 'game2', 'game3', 'game4', 'game5', 'game6', 'game7', 'game8', 'game9' ];
+  orginalList: string[] = [];
   gameList: string[];
   selectedList: string[];
   @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
@@ -53,7 +54,8 @@ export class HomePageComponent implements OnInit {
     pagination: false
   };
 
-  constructor(private router: Router, private translate: TranslateService) {
+  constructor(private router: Router, private translate: TranslateService,
+    private apiService: ApiServiceService) {
     this.config = {
       licenseKey: '0FB20392-42234774-8832938C-619D0B0A',
       anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
@@ -82,8 +84,13 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.apiService.getGames().subscribe( (data: any) => {
+      console.log(data.name);
+      this.orginalList = data.name;
+      this.gameList = this.orginalList;
+    });
     this.selectedList = [];
-    this.gameList = this.orginalList;
+    // this.gameList = this.orginalList;
     this.searchField.valueChanges
       .pipe(debounceTime(500))
       .subscribe(term => {
