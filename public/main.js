@@ -1589,6 +1589,52 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/home-page/api-service.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/home-page/api-service.service.ts ***!
+  \**************************************************/
+/*! exports provided: ApiServiceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiServiceService", function() { return ApiServiceService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ApiServiceService = /** @class */ (function () {
+    function ApiServiceService(http) {
+        this.http = http;
+    }
+    ApiServiceService.prototype.getGames = function () {
+        return this.http.get('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/get_games');
+    };
+    ApiServiceService.prototype.postGames = function () {
+        return this.http.post('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/postResult', { games: ['DOTA2', 'ARK', 'LOL'] });
+    };
+    ApiServiceService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], ApiServiceService);
+    return ApiServiceService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/home-page/home-page.component.html":
 /*!****************************************************!*\
   !*** ./src/app/home-page/home-page.component.html ***!
@@ -1628,6 +1674,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-swiper-wrapper */ "./node_modules/ngx-swiper-wrapper/dist/ngx-swiper-wrapper.es5.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _api_service_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./api-service.service */ "./src/app/home-page/api-service.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1644,15 +1691,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var HomePageComponent = /** @class */ (function () {
-    function HomePageComponent(router, translate) {
+    function HomePageComponent(router, translate, apiService) {
         var _this = this;
         this.router = router;
         this.translate = translate;
+        this.apiService = apiService;
         this.disableMenu = false;
         this.visible = false;
         this.searchField = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]();
-        this.orginalList = ['game0', 'game1', 'game2', 'game3', 'game4', 'game5', 'game6', 'game7', 'game8', 'game9'];
+        this.orginalList = [];
         this.swipperConfig = {
             direction: 'horizontal',
             slidesPerView: 5,
@@ -1690,8 +1739,13 @@ var HomePageComponent = /** @class */ (function () {
     }
     HomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.apiService.getGames().subscribe(function (data) {
+            console.log(data.name);
+            _this.orginalList = data.name;
+            _this.gameList = _this.orginalList;
+        });
         this.selectedList = [];
-        this.gameList = this.orginalList;
+        // this.gameList = this.orginalList;
         this.searchField.valueChanges
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["debounceTime"])(500))
             .subscribe(function (term) {
@@ -1768,9 +1822,11 @@ var HomePageComponent = /** @class */ (function () {
                         Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])('0.5s 0.3s ease-in', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 0 }))
                     ])
                 ])
-            ]
+            ],
+            providers: [_api_service_service__WEBPACK_IMPORTED_MODULE_7__["ApiServiceService"]]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateService"],
+            _api_service_service__WEBPACK_IMPORTED_MODULE_7__["ApiServiceService"]])
     ], HomePageComponent);
     return HomePageComponent;
 }());
