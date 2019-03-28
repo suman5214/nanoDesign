@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+// @import url(~fullpage.js/dist/fullpage.min.css);
+@font-face{
+  font-family: alternate-gothic;
+  src: url(assets/fonts/gothic.otf) format("opentype");
+}
+@import '~swiper/dist/css/swiper.min.css';
+// change default css
+.fp-controlArrow {
+    padding: 0 1%;
+}
+

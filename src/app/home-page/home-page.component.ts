@@ -1,0 +1,145 @@
+import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import * as Rellax from 'Rellax';
+import { Router } from '@angular/router';
+import { trigger, style, animate, transition } from '@angular/animations';
+import {FormControl} from '@angular/forms';
+import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+import { debounceTime } from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
+
+import { interval as observableInterval } from 'rxjs';
+import { takeWhile, scan, tap } from 'rxjs/operators';
+
+
+
+@Component({
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateY(-20px)',  opacity: 0}),
+          animate('0.5s 0.7s ease-in', style({transform: 'translateY(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({opacity: 1}),
+          animate('0.5s 0.3s ease-in', style({opacity: 0}))
+        ])
+      ]
+    )
+  ]
+})
+export class HomePageComponent implements OnInit {
+  @ViewChild('fullpageRef') fp_directive: ElementRef;
+  config;
+  fullpage_api;
+  disableMenu: any = false;
+  visible = false;
+  searchField = new FormControl();
+  orginalList: string[] = ['game0', 'game1', 'game2', 'game3', 'game4', 'game5', 'game6', 'game7', 'game8', 'game9' ];
+  gameList: string[];
+  selectedList: string[];
+  @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
+
+  public swipperConfig: SwiperConfigInterface = {
+    direction: 'horizontal',
+    slidesPerView: 5,
+    keyboard: true,
+    mousewheel: true,
+    scrollbar: false,
+    navigation: true,
+    pagination: false
+  };
+
+  constructor(private router: Router, private translate: TranslateService) {
+    this.config = {
+      licenseKey: '0FB20392-42234774-8832938C-619D0B0A',
+      anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
+      menu: '#menu',
+      navigation: true,
+
+      // events callback
+      afterLoad: (origin, destination, direction) => {
+        // console.log(origin, destination, direction);
+        if (destination.anchor === 'firstPage') {
+          this.disableMenu = true;
+        } else {
+          this.disableMenu = false;
+        }
+      },
+      afterRender: () => {
+        // console.log('afterRender');
+      },
+      afterResize: (width, height) => {
+        // console.log('afterResize' + width + ' ' + height);
+      },
+      afterSlideLoad: (section, origin, destination, direction) => {
+         console.log(section, origin, destination, direction);
+      }
+    };
+  }
+
+  ngOnInit() {
+    this.selectedList = [];
+    this.gameList = this.orginalList;
+    this.searchField.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(term => {
+        console.log(term);
+        if (term === '') {
+          this.gameList = this.orginalList;
+        }
+        this.gameList = this.orginalList.filter( game => {
+          return game.includes(term);
+        });
+        // this.directiveRef.update();
+      });
+  }
+
+  getRef(fullPageRef) {
+    this.fullpage_api = fullPageRef;
+  }
+
+  handleSelect(type: string) {
+    this.router.navigate(['/select', {type: type}]);
+  }
+  pillSelect(event) {
+    if (this.selectedList.includes(event)) {
+      this.selectedList = this.selectedList.filter(item => {
+        return item !== event;
+      });
+    } else {
+    this.selectedList.push(event);
+    }
+  }
+  changeLanguage() {
+    this.translate.use('cn');
+  }
+  removeLast() {
+    const lastSection = this.fp_directive.nativeElement.lastChild;
+
+    if (lastSection.isEqualNode(this.fullpage_api.getActiveSection().item)) {
+      this.fullpage_api.moveSectionUp();
+    }
+    lastSection.remove();
+
+    this.fullpage_api.build();
+  }
+
+  randomColor() {
+    return '#' + Math.random().toString(16).slice(-3);
+  }
+
+convertRemToPixels(rem: number): number {
+    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+  scrollToTop(el) {
+  el.scrollTop = el.scrollTop + this.convertRemToPixels(10);
+  }
+  scrollToBot(el) {
+    el.scrollTop = el.scrollTop - this.convertRemToPixels(10);
+  }
+}

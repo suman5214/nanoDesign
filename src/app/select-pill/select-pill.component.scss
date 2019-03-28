@@ -1,0 +1,35 @@
+div, img{
+  height: 3em;
+  width: 3em;
+}
+.pill-title{
+  height: auto;
+  width: auto;
+  font-size: 0.5em;
+}
+
+div {
+  .pill-container{
+    position: relative;
+  }
+  .overlay{
+    opacity: 0;
+    background-color: white;
+    transition: opacity ease 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    &:hover{
+      opacity: 0.7;
+    }
+    p{
+      font-size: 0.7em;
+      margin: 0;
+    }
+  }
+  .selectedPill{
+    opacity: 0.85;
+  }
+}
+

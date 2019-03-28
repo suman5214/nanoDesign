@@ -1,0 +1,398 @@
+$gray: #eaeaea;
+$navy_blue: #1c1c1c;
+$rice_brown: #c8a175;
+
+
+section {
+  width: 100%;
+  padding: 5em;
+  box-sizing: border-box;
+  color: white;
+  font-family: alternate-gothic, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+
+  &.options{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    color: $navy_blue;
+    padding: 0;
+    background-color: $gray;
+    .result-options, .select-options{
+      width: 50%;
+      height: 100%;
+    }
+    .result-options{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      .configuration{
+        height: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        .parts{
+          width: 50%;
+          font-size: 0.35em;
+          svg-icon{
+            float: left;
+          }
+          .parts-title{
+            float: left;
+            height: 100%;
+            margin-left: 1em;
+            span{
+              float: left;
+            }
+            p {
+              clear: left;
+              width: 15em;
+              font-size: 1.4em;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+    .select-options{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      .options-container{
+        scroll-behavior: smooth;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        overflow: hidden;
+        height: 50%;
+        width: 100%;
+        select-pill{
+          margin: 0.5em;
+          position: relative;
+        }
+      }
+    }
+    .btn-card{
+      background-color: $navy_blue;
+      color: white;
+      margin: 0 auto auto auto;
+      border-radius: 300px;
+      border: none;
+      height: 3.5em;
+      width: 11em;
+      text-align: center;
+      font-size: 0.3em;
+      font-weight: 100;
+      letter-spacing: 0.2em;
+      transition: background-color 0.3s ease;
+      position: absolute;
+      right: 2em;
+      bottom: 2em;
+      &:hover{
+        background-color: $rice_brown;
+        color: white;
+      }
+    }
+
+    .title{
+      margin: 2em auto 0 auto;
+    }
+    form{
+      width: 10em;
+      margin: auto;
+      input{
+        font-size: 0.5em;
+      }
+      i{
+        font-size: 0.5em;
+        color: $navy_blue;
+      }
+    }
+    .swiper-container{
+      height: 15em;
+      width: 75em;
+      margin: auto calc( 50% - 37.5em) 0 calc( 50% - 37.5em);
+    }
+    .swiper-slide{
+      // width: 20%;
+      margin: 0 1.45px;
+      overflow: hidden;
+      div{
+        opacity: 0;
+        background-color: white;
+        transition: opacity ease 0.5s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+          opacity: 0.7;
+        }
+      }
+      div:nth-of-type(1){
+        position: absolute;
+        height: calc(50% - 2.5px);
+        width: 100%;
+        top: 0;
+      }
+      div:nth-of-type(2){
+        position: absolute;
+        height: 50%;
+        width: 100%;
+        top: 50%;
+
+      }
+      img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      img:nth-of-type(1){
+        height: calc(50% - 2.5px);
+        margin-bottom: 2.5px;
+      }
+      img:nth-of-type(2){
+        height: calc(50% - 2.5px);
+        margin-top: 2.5px;
+      }
+    }
+  }
+  &.about{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: $gray;
+    padding: 0;
+    div{
+      width: 24em;
+    }
+    small{
+      font-family: "utopia-std";
+      text-transform: none;
+      letter-spacing: 0;
+      font-style: italic;
+      font-size: 0.35em;
+      color: $navy_blue;
+    }
+    .about-container {
+      margin-top: 1.5em;
+      margin-bottom: 3.5em;
+    }
+    .about-caption{
+      font-size: 0.38em;
+    }
+    .about-title{
+      font-size: 1em;
+      font-weight: 100;
+      font-family: sans-serif;
+      margin-bottom: 0;
+    }
+    p{
+      width: 100%;
+      font-size: 0.5em;
+      line-height: 2em;
+      letter-spacing: 2px;
+      color: $navy_blue;
+      margin-bottom: 1em;
+    }
+  }
+  &.story{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+    border: 2px solid white;
+    h3{
+      font-size: 2em;
+      font-weight: 100;
+    }
+    p {
+      font-size: 1.4em;
+      margin: 0;
+      font-weight: bold;
+      opacity: 0.6;
+    }
+    h1{
+      font-size: 1.5em;
+      span{
+        border: 0.06em solid;
+        letter-spacing: 0.3em;
+        padding-left: 0.5em;
+      }
+    }
+    background-image: url('../../assets/city1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &.products{
+    background-color: white;
+    z-index: 5;
+    padding-top: 100px;
+    position: absolute;
+    color: $navy_blue;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .title{
+      width:100%;
+      height: 100px;
+      text-align: center;
+      h2{
+        font-weight: 600;
+        font-size: 2.2em;
+      }
+    }
+
+  }
+}
+.section {
+
+ section{
+  border: 0.3em solid white;
+
+  &.product{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0;
+    .product-card{
+      border: none;
+      width: 50%;
+      height: 100%;
+      img{
+        margin-top: 30%;
+      }
+      margin: 0 1%;
+      .card-body{
+        margin: 20% 0;
+        padding: 0;
+        small{
+          font-family: "utopia-std";
+          text-transform: none;
+          letter-spacing: 0;
+          font-style: italic;
+          font-size: 0.35em;
+        }
+        p{
+          font-size: 0.5em;
+          line-height: 1.5em;
+          letter-spacing: 2px;
+          padding-top: 1em;
+        }
+        .btn-card{
+          margin-top: 25%;
+          border-radius: 300px;
+          border: none;
+          height: 3.5em;
+          width: 11em;
+          text-align: center;
+          font-size: 0.24em;
+          font-weight: 100;
+          letter-spacing: 0.2em;
+          transition: background-color 0.3s ease;
+          &:hover{
+            background-color: $rice_brown;
+            color: white;
+          }
+        }
+      }
+    }
+    .left-container{
+      background: $navy_blue;
+      height: 100%;
+      // width: 50%;
+      margin-right: 7.5px;
+      max-width: 50%;;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      button{
+        color: $navy_blue;
+        background-color: white
+      }
+    }
+    .right-container{
+      background: $gray;
+      height: 100%;
+      // width: 50%;
+      margin-left: 7.5px;
+      max-width: 50%;;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $navy_blue;
+      button{
+        color: white;
+        background-color: $navy_blue;
+      }
+    }
+  }
+ }
+}
+
+#menu{
+	position:fixed;
+	top:0;
+	left:0;
+	z-index: 70;
+	width: 100%;
+	padding: 0;
+  margin: 0;
+}
+
+header {
+  font-size: 0.33em;
+  height: 8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $navy_blue;
+
+   div {
+     min-width: 30px;
+     min-height: 30px;
+     letter-spacing: 0.2em;
+     &.top-middle{
+       // width: 80px;
+      //  margin: 0 30em;
+       h1{
+         font-size: 4em;
+         span{
+           letter-spacing: -0.16em;
+
+         }
+       }
+     }
+     span{
+       a{
+         color: white;
+         margin: 0.618em;
+         padding: 0.618em;
+         font-size: 0.85em;
+         transition: background-color 0.3s ease;
+         &:hover{
+           background-color: $rice_brown;
+           color: white;
+         }
+       }
+     }
+   }
+ }

@@ -1,0 +1,145 @@
+<header [@enterAnimation] id="menu">
+  <div class="top-left">
+    <span>
+      <a routerLink="select">STORY</a>
+      <a>GALLERY</a>
+    </span>
+  </div>
+  <div class="top-middle">
+    <h1 *ngIf="disableMenu"><span>Nano Design</span> </h1>
+  </div>
+  <div class="top-right">
+    <span>
+      <a>CONTACT</a>
+      <a (click)="changeLanguage()">LANGUAGE</a>
+    </span>
+  </div>
+</header>
+
+<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)" #fullpageRef>
+  <div class="section">
+    <section class="story">
+      <h1><span>Nano Design</span></h1>
+    </section>
+  </div>
+  <div class="section">
+    <section class="about">
+
+      <div>
+        <div class="about-container">
+            <p class="about-title">- Our Mission -</p>
+            <p class="about-caption">{{ 'STORY_CAPTION' | translate}} </p>
+        </div>
+
+        <!-- <p>        To provide the most unique customize pc for passionate users.
+          </p>
+        <p> Nano design is a group formed by experienced hardware engineer, software developer and customer service. We want to make the whole process transparent, budget efficient and more customize to benefit as many pc lovers as possible. Always remember making the unique feeling for users is one of the most important goals from us.
+          </p> -->
+          <p>{{ 'FIRST_STORY' | translate}}</p>
+          <p>{{ 'SECOND_STORY' | translate}}</p>
+        <small>The NanoDesign Team</small>
+      </div>
+    </section>
+  </div>
+  <div class="section">
+    <section class="product">
+      <div class="left-container">
+        <div class="product-card">
+          <img class="card-img-top" src="../assets/computer.jpg" alt="Card image cap">
+          <div class="card-body">
+            <small class="card-title">Gaming Computer</small>
+            <p class="card-text">{{ 'GAMING_DES' | translate}}</p>
+            <div class="text-center">
+              <button href="#" class="btn-card" (click)="handleSelect('game')">LEARN MORE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="product-card">
+          <img class="card-img-top" src="../assets/computer.jpg" alt="Card image cap">
+          <div class="card-body">
+            <small class="card-title">Work Station</small>
+            <p class="card-text">{{ 'WORK_DES' | translate}}</p>
+            <div class="text-center">
+              <button href="#" class="btn-card" (click)="handleSelect('game')">LEARN MORE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="section">
+    <section class="options">
+      <div class="select-options">
+        <button [@enterAnimation] *ngIf="selectedList.length !== 0" href="#" class="btn-card">GET RESULT</button>
+        <div class="title">
+          <p> What Kind of games are you planning to play?</p>
+        </div>
+        <!-- <div class="swiper-container" [swiper]="swipperConfig">
+
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" *ngFor="let game of gameList">
+                  <select-pill [imgLink]="'../../assets/gameLogo/' + game + '.jpg'" [pillName]="game" [selected]="selectedList.includes(game)" (select)="pillSelect($event)" ></select-pill>
+              </div>
+            </div>
+          </div> -->
+        <div #container class="options-container">
+          <ng-container *ngFor="let game of gameList">
+            <select-pill [imgLink]="'../../assets/gameLogo/' + game + '.jpg'" [pillName]="game"
+              [selected]="selectedList.includes(game)" (select)="pillSelect($event)"></select-pill>
+          </ng-container>
+        </div>
+        <button (click)="scrollToTop(container)">scroll to top</button>
+        <button (click)="scrollToBot(container)">scroll to bottom</button>
+        <form class="form-inline md-form form-sm">
+
+          <input [formControl]="searchField" class="form-control form-control-sm ml-3 w-75" type="text"
+            placeholder="Search" aria-label="Search">
+          <i class="fas fa-search" aria-hidden="true"></i>
+        </form>
+      </div>
+
+      <div class="result-options">
+
+        <div class="configuration">
+          <div class="parts">
+            <svg-icon src="../../assets/config-cpu.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>CPU</span>
+                <p>Up to 9th Gen Intel® Core™ i9 9900K</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/config-gpu.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>Graphics Card</span>
+                <p>Up to Dual NVIDIA® GeForce RTX™ 2080 8GB GDDR6 each</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/config-case.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>Case</span>
+                <p>Up to 9th Gen Intel® Core™ i9 9900K</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/config-ram.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>Memorey</span>
+                <p>Up to 16GB Dual Channel DDR4 at 2666MHz; up to 64GB</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+  <!-- <div class="section">
+    <h1>Section 4</h1>
+    <button (click)="addSection()">Add sections and change color</button>
+    <button (click)="fullpage_api.moveTo('secondPage', 2)">Move to second page</button>
+    <button (click)="removeLast()">Remove last</button>
+  </div> -->
+</div>

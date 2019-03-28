@@ -1,0 +1,10 @@
+<div class="pill-container" (click)="onSelect()" >
+  <div class="overlay" [ngClass]="{'selectedPill': selected}">
+    <p *ngIf="!selected">SELECT</p>
+    <p *ngIf="selected">SELECTED</p>
+  </div>
+  <img src="{{imgLink}}">
+</div>
+<div class="pill-title">
+  {{pillName}}
+</div>

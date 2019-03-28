@@ -1,0 +1,23 @@
+router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+app-home-page{
+  text-align:center;
+  font-size: 0.8em;
+
+  @media screen and (min-width: 500px) {
+    font-size: 2em;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 2.5em;
+  }
+
+  @media screen and (min-width: 1600px) {
+    font-size: 3em;
+  }
+
+}
