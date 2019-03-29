@@ -12,8 +12,8 @@ export class ApiServiceService {
     return this.http.get('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/get_games');
   }
 
-  postGames() {
+  postGames(list) {
     return this.http.post('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/postResult',
-    {games: ['DOTA2', 'ARK', 'LOL']});
+    {games: list});
   }
 }

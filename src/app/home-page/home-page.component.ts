@@ -28,6 +28,14 @@ import { ApiServiceService } from './api-service.service';
           animate('0.5s 0.3s ease-in', style({opacity: 0}))
         ])
       ]
+    ),
+    trigger(
+      'loadAnimation', [
+        transition(':enter', [
+          style({transform: 'translateY(-20px)',  opacity: 0}),
+          animate('0.5s 0.7s ease-in', style({transform: 'translateY(0)', opacity: 1}))
+        ])
+      ]
     )
   ],
   providers: [ApiServiceService]
@@ -54,6 +62,8 @@ export class HomePageComponent implements OnInit {
     pagination: false
   };
 
+  result = { 'cpu' : '', 'gpu': '', 'mem': ''};
+  loading = false;
   constructor(private router: Router, private translate: TranslateService,
     private apiService: ApiServiceService) {
     this.config = {
@@ -144,9 +154,27 @@ convertRemToPixels(rem: number): number {
 }
 
   scrollToTop(el) {
-  el.scrollTop = el.scrollTop + this.convertRemToPixels(10);
+  el.scrollTop = el.scrollTop + this.convertRemToPixels(15);
   }
   scrollToBot(el) {
-    el.scrollTop = el.scrollTop - this.convertRemToPixels(10);
+    el.scrollTop = el.scrollTop - this.convertRemToPixels(15);
+  }
+
+  getResult() {
+    this.loading = true;
+    console.log(this.selectedList);
+
+    this.apiService.postGames(this.selectedList).toPromise().then( res => {
+      console.log(res);
+
+    Object.keys(res).forEach(key => {
+        this.result[key] = res[key][0];
+      }
+    );
+    console.log(this.result);
+    this.loading = false;
+    }).catch (err => {
+      console.log(err);
+    });
   }
 }
