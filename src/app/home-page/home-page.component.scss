@@ -1,7 +1,8 @@
 $gray: #eaeaea;
 $navy_blue: #1c1c1c;
 $rice_brown: #c8a175;
-
+$duck_yello: #fff471;
+$gray_dark: #d8d7d6;
 .arrow-bot{
   position: absolute;
   bottom: 0.25em;
@@ -229,7 +230,7 @@ section {
     justify-content: center;
     min-height: 100vh;
     font-family: sans-serif;
-    border: 2px solid white;
+    // border: 2px solid white;
     h3{
       font-size: 2em;
       font-weight: 100;
@@ -242,13 +243,17 @@ section {
     }
     h1{
       font-size: 1.5em;
+      border-bottom: 0.1em solid white;
       span{
-        border: 0.06em solid;
-        letter-spacing: 0.3em;
+        color: white;
+        font-size: 1.5em;
+        font-weight: bold;
+        // border: 0.06em solid;
+        // letter-spacing: 0.3em;
         padding-left: 0.5em;
       }
     }
-    background-image: url('../../assets/city1.jpg');
+    background-image: url('../../assets/bg.png');
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -277,7 +282,7 @@ section {
 .section {
 
  section{
-  border: 0.3em solid white;
+  // border: 0.3em solid white;
 
   &.product{
     height: 100%;
@@ -371,8 +376,8 @@ section {
     /* padding: 0; */
     /* margin-left: -1em; */
     /* margin: 0 -23em 0 1em; */
-    border-left: solid 0.9em white;
-    border-right: solid 0.9em white;
+    // border-left: solid 0.9em white;
+    // border-right: solid 0.9em white;
 }
 
 header.non-first{
@@ -415,8 +420,9 @@ header {
          font-size: 0.85em;
          transition: background-color 0.3s ease;
          &:hover{
-           background-color: $rice_brown;
-           color: white;
+          background-color: $rice_brown;
+           color: $navy_blue;
+          //  text-decoration: underline;
          }
        }
      }

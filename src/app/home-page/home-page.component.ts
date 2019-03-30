@@ -64,8 +64,8 @@ export class HomePageComponent implements OnInit {
     private apiService: ApiServiceService) {
     this.config = {
       licenseKey: '0FB20392-42234774-8832938C-619D0B0A',
-      anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
-      menu: '#menu',
+       anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
+       menu: '#menu',
       navigation: true,
       onLeave: (origin, destination, direction) => {
 
@@ -129,7 +129,11 @@ export class HomePageComponent implements OnInit {
     }
   }
   changeLanguage() {
-    this.translate.use('cn');
+    if (this.translate.currentLang === 'en') {
+      this.translate.use('cn');
+    } else {
+    this.translate.use('en');
+    }
   }
   removeLast() {
     const lastSection = this.fp_directive.nativeElement.lastChild;
