@@ -1,12 +1,13 @@
-<header [@enterAnimation] id="menu">
+<svg-icon (click)="nextPage()" [applyCss]="true" class="arrow-bot" src="../../assets/arrow-bot.svg" [svgStyle]="{ 'width.em': 2, 'height.em': 1 }"></svg-icon>
+<header [@enterAnimation] id="menu" [ngClass]="{'non-first': !disableMenu}">
   <div class="top-left">
     <span>
       <a routerLink="select">STORY</a>
       <a>GALLERY</a>
     </span>
   </div>
-  <div class="top-middle">
-    <h1 *ngIf="disableMenu"><span><svg-icon src="../../assets/nano-logo-5.svg" [svgStyle]="{ 'width.em': 5}"></svg-icon></span> </h1>
+  <div [@enterAnimation] *ngIf="disableMenu" class="top-middle">
+    <h1 ><span><svg-icon src="../../assets/nano-logo-5.svg" [svgStyle]="{ 'width.em': 5}"></svg-icon></span> </h1>
   </div>
   <div class="top-right">
     <span>
@@ -20,6 +21,7 @@
   <div class="section">
     <section class="story">
       <h1><span>Nano Design</span></h1>
+
     </section>
   </div>
   <div class="section">
@@ -90,10 +92,13 @@
               [selected]="selectedList.includes(game)" (select)="pillSelect($event)"></select-pill>
           </ng-container>
         </div>
-        <button (click)="scrollToTop(container)">scroll to top</button>
-        <button (click)="scrollToBot(container)">scroll to bottom</button>
-        <form class="form-inline md-form form-sm">
 
+
+        <!-- <button (click)="scrollToTop(container)">scroll to top</button> -->
+        <!-- <button (click)="scrollToBot(container)">scroll to bottom</button> -->
+        <form class="form-inline md-form form-sm">
+            <svg-icon (click)="scrollToBot(container)" src="../../assets/select-up.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
+            <svg-icon (click)="scrollToTop(container)" src="../../assets/select-down.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
           <input [formControl]="searchField" class="form-control form-control-sm ml-3 w-75" type="text"
             placeholder="Search" aria-label="Search">
           <i class="fas fa-search" aria-hidden="true"></i>

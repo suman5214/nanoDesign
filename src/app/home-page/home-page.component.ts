@@ -22,10 +22,6 @@ import { ApiServiceService } from './api-service.service';
         transition(':enter', [
           style({transform: 'translateY(-20px)',  opacity: 0}),
           animate('0.5s 0.7s ease-in', style({transform: 'translateY(0)', opacity: 1}))
-        ]),
-        transition(':leave', [
-          style({opacity: 1}),
-          animate('0.5s 0.3s ease-in', style({opacity: 0}))
         ])
       ]
     ),
@@ -71,14 +67,15 @@ export class HomePageComponent implements OnInit {
       anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
       menu: '#menu',
       navigation: true,
+      onLeave: (origin, destination, direction) => {
 
+          this.disableMenu = false;
+      },
       // events callback
       afterLoad: (origin, destination, direction) => {
         // console.log(origin, destination, direction);
         if (destination.anchor === 'firstPage') {
           this.disableMenu = true;
-        } else {
-          this.disableMenu = false;
         }
       },
       afterRender: () => {
@@ -148,6 +145,10 @@ export class HomePageComponent implements OnInit {
   randomColor() {
     return '#' + Math.random().toString(16).slice(-3);
   }
+
+nextPage() {
+  this.fullpage_api.moveSectionDown();
+}
 
 convertRemToPixels(rem: number): number {
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);

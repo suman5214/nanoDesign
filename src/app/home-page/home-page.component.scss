@@ -2,6 +2,19 @@ $gray: #eaeaea;
 $navy_blue: #1c1c1c;
 $rice_brown: #c8a175;
 
+.arrow-bot{
+  position: absolute;
+  bottom: 0.25em;
+  left: 50%;
+  margin-left: -1.25em;
+  z-index: 100;
+  svg {
+    &:hover{
+      height: 1.3em !important;
+    }
+  }
+}
+
 
 section {
   width: 100%;
@@ -12,6 +25,7 @@ section {
   font-style: normal;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+
 
   &.options{
     height: 100%;
@@ -234,7 +248,7 @@ section {
         padding-left: 0.5em;
       }
     }
-    background-image: url('../../assets/bg.png');
+    background-image: url('../../assets/city1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -349,16 +363,28 @@ section {
 }
 
 #menu{
-	position:fixed;
-	top:0;
-	left:0;
-	z-index: 70;
-	width: 100%;
-	padding: 0;
-  margin: 0;
+	position: fixed;
+    /* top: 0.9em; */
+    left: 0;
+    z-index: 70;
+    width: 100%;
+    /* padding: 0; */
+    /* margin-left: -1em; */
+    /* margin: 0 -23em 0 1em; */
+    border-left: solid 0.9em white;
+    border-right: solid 0.9em white;
+}
+
+header.non-first{
+  height: 2em;
+  background-color: #1c1c1c;
+  div{
+    min-height: auto;
+  }
 }
 
 header {
+
   font-size: 0.33em;
   height: 8em;
   display: flex;
