@@ -100,22 +100,30 @@
               </div>
             </div>
           </div> -->
-        <div (click)="switchTab()" class="switch-tab">Switch to work</div>
-        <div #container class="options-container">
-          <ng-container *ngFor="let game of gameList">
-            <select-pill [imgLink]="'../../assets/gameLogo/' + game.id + '.jpg'" [pillID]="game.id" [pillName]="game.name"
-              [selected]="selectedList.includes(game.id)" (select)="pillSelect($event)"></select-pill>
-          </ng-container>
+        <div class="switch-tab">
+          <div (click)="switchTab()" [ngClass]="{'onSwitch': switchStatus === 'game'}" >Games</div>
+          <div (click)="switchTab()" [ngClass]="{'onSwitch': switchStatus === 'work'}">Office</div>
         </div>
+
+        <div class="switch-container">
+            <div class="options-scroll">
+                <svg-icon [applyCss]="true" (click)="scrollToBot(container)" src="../../assets/select-up.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
+                <svg-icon [applyCss]="true" (click)="scrollToTop(container)" src="../../assets/select-down.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
+            </div>
+            <div #container class="options-container">
+                <ng-container *ngFor="let game of gameList">
+                  <select-pill [imgLink]="'../../assets/gameLogo/' + game.id + '.jpg'" [pillID]="game.id" [pillName]="game.name"
+                    [selected]="selectedList.includes(game.id)" (select)="pillSelect($event)"></select-pill>
+                </ng-container>
+              </div>
+        </div>
+
 
         <button [@enterAnimation] (click)="getResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">GET RESULT</button>
         <!-- <button (click)="scrollToTop(container)">scroll to top</button> -->
         <!-- <button (click)="scrollToBot(container)">scroll to bottom</button> -->
         <form class="custom-form form-inline md-form form-sm">
-            <div>
-                <svg-icon [applyCss]="true" (click)="scrollToBot(container)" src="../../assets/select-up.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
-                <svg-icon [applyCss]="true" (click)="scrollToTop(container)" src="../../assets/select-down.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
-            </div>
+
           <input [formControl]="searchField" class="form-control form-control-sm ml-3 w-75" type="text"
             placeholder="Search" aria-label="Search">
           <i class="fas fa-search" aria-hidden="true"></i>
@@ -124,9 +132,9 @@
       </div>
 
       <div *ngIf="!mobile" class="result-options">
-        <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 1.5 }"></svg-icon>
+        <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 3, 'height.em': 3, 'margin-top.em': 5 }"></svg-icon>
         <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
-          <p>Please first select your games !!!!!</p>
+          <p>Select some Apps to get your result</p>
         </div>
         <div [@loadAnimation] *ngIf="loading === 'result'" class="configuration">
           <div class="parts">
@@ -202,14 +210,14 @@
 
   <div *ngIf="mobile" class="section">
     <section class="options">
-        <div class="title">
-            <p> What Kind of games are you planning to play?</p>
-          </div>
+        <!-- <div class="title">
+            <p> Select some Apps to get your result</p>
+          </div> -->
 
       <div class="result-options">
-        <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 1.5 }"></svg-icon>
+        <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 3, 'height.em': 3, 'margin-top.em': 5 }"></svg-icon>
         <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
-          <p>Please first select your games !!!!!</p>
+          <p>Select some Apps to get your result</p>
         </div>
         <div [@loadAnimation] *ngIf="loading === 'result'" class="configuration">
           <div class="parts">

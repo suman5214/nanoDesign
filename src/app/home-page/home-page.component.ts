@@ -52,6 +52,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
   selectedList: any;
   switchStatus = 'game';
   screenWidth: number;
+  lastSection = false;
   @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
 
   public swipperConfig: SwiperConfigInterface = {
@@ -88,6 +89,9 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
         if (destination.anchor === 'firstPage') {
           this.disableMenu = true;
         }
+        // if (destination.anchor === 'fourthPage' && this.mobile) {
+        //   this.fullpage_api.setAutoScrolling(false);
+        // }
       },
       afterRender: () => {
         // console.log('afterRender');
@@ -226,7 +230,9 @@ convertRemToPixels(rem: number): number {
     const games = [];
     const works = [];
     if (this.mobile) {
+      this.lastSection = true;
       this.fullpage_api.moveSectionDown();
+
     }
     this.orginalGameList.forEach(data => {
       if (this.selectedList.includes(data.id)) {
