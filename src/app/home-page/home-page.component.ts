@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener, AfterViewChecked} from '@angular/core';
 import * as Rellax from 'Rellax';
 import { Router } from '@angular/router';
 import { trigger, style, animate, transition } from '@angular/animations';
@@ -10,6 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import { interval as observableInterval } from 'rxjs';
 import { takeWhile, scan, tap } from 'rxjs/operators';
 import { ApiServiceService } from './api-service.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -36,7 +37,7 @@ import { ApiServiceService } from './api-service.service';
   ],
   providers: [ApiServiceService]
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, AfterViewChecked {
   @ViewChild('fullpageRef') fp_directive: ElementRef;
   config;
   fullpage_api;
@@ -67,7 +68,7 @@ export class HomePageComponent implements OnInit {
   loading = 'init';
   mobile: boolean;
   constructor(private router: Router, private translate: TranslateService,
-    private apiService: ApiServiceService) {
+    private apiService: ApiServiceService, private cdf: ChangeDetectorRef) {
     this.config = {
       licenseKey: '0FB20392-42234774-8832938C-619D0B0A',
        anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
@@ -143,7 +144,9 @@ export class HomePageComponent implements OnInit {
         // this.directiveRef.update();
       });
   }
-
+  ngAfterViewChecked() {
+    this.cdf.detectChanges();
+  }
   switchTab() {
     console.log(this.selectedList);
     if (this.switchStatus === 'game') {
@@ -222,6 +225,9 @@ convertRemToPixels(rem: number): number {
     console.log(this.selectedList);
     const games = [];
     const works = [];
+    if (this.mobile) {
+      this.fullpage_api.moveSectionDown();
+    }
     this.orginalGameList.forEach(data => {
       if (this.selectedList.includes(data.id)) {
         games.push(data.id);
