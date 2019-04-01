@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener} from '@angular/core';
 import * as Rellax from 'Rellax';
 import { Router } from '@angular/router';
 import { trigger, style, animate, transition } from '@angular/animations';
@@ -41,11 +41,16 @@ export class HomePageComponent implements OnInit {
   config;
   fullpage_api;
   disableMenu: any = false;
+  disableLoading = true;
   visible = false;
   searchField = new FormControl();
-  orginalList: string[] = [];
-  gameList: string[];
-  selectedList: string[];
+  orginalGameList: any = [];
+  gameList: any;
+  orginalWorkList: any = [];
+  workList: any;
+  selectedList: any;
+  switchStatus = 'game';
+  screenWidth: number;
   @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
 
   public swipperConfig: SwiperConfigInterface = {
@@ -58,8 +63,9 @@ export class HomePageComponent implements OnInit {
     pagination: false
   };
 
-  result = { 'cpu' : '', 'gpu': '', 'mem': ''};
-  loading = false;
+  result = { 'cpu' : '', 'gpu': '', 'mem': '', 'price': null, 'psu': []};
+  loading = 'init';
+  mobile: boolean;
   constructor(private router: Router, private translate: TranslateService,
     private apiService: ApiServiceService) {
     this.config = {
@@ -68,8 +74,12 @@ export class HomePageComponent implements OnInit {
        menu: '#menu',
       navigation: true,
       onLeave: (origin, destination, direction) => {
-
           this.disableMenu = false;
+          if (destination.anchor === 'fourthPage') {
+            this.disableLoading = false;
+          } else {
+            this.disableLoading = true;
+          }
       },
       // events callback
       afterLoad: (origin, destination, direction) => {
@@ -91,27 +101,59 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.getGames().subscribe( (data: any) => {
-      console.log(data.name);
-      this.orginalList = data.name;
-      this.gameList = this.orginalList;
+    this.screenWidth = window.innerWidth;
+    this.mobile = this.screenWidth <= 500 ? true : false;
+    this.apiService.getGames().subscribe( (res: any) => {
+      res.forEach(data => {
+        this.orginalGameList.push(data);
+        this.gameList = this.orginalGameList;
+      });
+
+    });
+    this.apiService.getWorks().subscribe( (res: any) => {
+      res.forEach(data => {
+        this.orginalWorkList.push(data);
+      });
+      // this.workList = this.orginalWorkList;
     });
     this.selectedList = [];
-    // this.gameList = this.orginalList;
+    // this.gameList = this.orginalGameList;
     this.searchField.valueChanges
       .pipe(debounceTime(500))
       .subscribe(term => {
         console.log(term);
         if (term === '') {
-          this.gameList = this.orginalList;
+          if (this.switchStatus === 'game') {
+            this.gameList = this.orginalGameList;
+          } else {
+            this.gameList = this.orginalWorkList;
+          }
         }
-        this.gameList = this.orginalList.filter( game => {
-          return game.includes(term);
-        });
+        if (this.switchStatus === 'game') {
+          this.gameList = this.orginalGameList.filter( game => {
+            return game.name.toLowerCase().includes(term.toLowerCase());
+          });
+        } else {
+          this.gameList = this.orginalWorkList.filter( game => {
+            return game.name.toLowerCase().includes(term.toLowerCase());
+          });
+        }
+
+
         // this.directiveRef.update();
       });
   }
 
+  switchTab() {
+    console.log(this.selectedList);
+    if (this.switchStatus === 'game') {
+      this.switchStatus = 'work';
+      this.gameList = this.orginalWorkList;
+    } else {
+      this.switchStatus = 'game';
+      this.gameList = this.orginalGameList;
+    }
+  }
   getRef(fullPageRef) {
     this.fullpage_api = fullPageRef;
   }
@@ -120,6 +162,7 @@ export class HomePageComponent implements OnInit {
     this.router.navigate(['/select', {type: type}]);
   }
   pillSelect(event) {
+    console.log(this.selectedList, event);
     if (this.selectedList.includes(event)) {
       this.selectedList = this.selectedList.filter(item => {
         return item !== event;
@@ -153,7 +196,16 @@ export class HomePageComponent implements OnInit {
 nextPage() {
   this.fullpage_api.moveSectionDown();
 }
-
+nextGame() {
+  this.gameList = this.orginalGameList;
+  this.switchStatus = 'game';
+  this.fullpage_api.moveSectionDown();
+}
+nextWork() {
+  this.gameList = this.orginalWorkList;
+  this.switchStatus = 'work';
+  this.fullpage_api.moveSectionDown();
+}
 convertRemToPixels(rem: number): number {
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
@@ -166,18 +218,35 @@ convertRemToPixels(rem: number): number {
   }
 
   getResult() {
-    this.loading = true;
+    this.loading = 'load';
     console.log(this.selectedList);
-
-    this.apiService.postGames(this.selectedList).toPromise().then( res => {
+    const games = [];
+    const works = [];
+    this.orginalGameList.forEach(data => {
+      if (this.selectedList.includes(data.id)) {
+        games.push(data.id);
+      }
+    });
+    this.orginalWorkList.forEach(data => {
+      if (this.selectedList.includes(data.id)) {
+        works.push(data.id);
+      }
+    });
+    this.apiService.postGames(games, works).toPromise().then( res => {
       console.log(res);
 
     Object.keys(res).forEach(key => {
-        this.result[key] = res[key][0];
+        if (key === 'price') {
+          this.result[key] = res[key];
+        } else if (key === 'psu') {
+          this.result[key] = [res[key][0], res[key][2]] ;
+        } else {
+          this.result[key] = res[key][0];
+        }
       }
     );
     console.log(this.result);
-    this.loading = false;
+    this.loading = 'result';
     }).catch (err => {
       console.log(err);
     });

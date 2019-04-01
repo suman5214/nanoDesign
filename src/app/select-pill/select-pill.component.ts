@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { pipe } from '@angular/core/src/render3';
 
 @Component({
   selector: 'select-pill',
@@ -9,6 +10,7 @@ export class SelectPillComponent implements OnInit {
   @Input() imgLink: string;
   @Output() select = new EventEmitter();
   @Input() pillName: string;
+  @Input() pillID: string;
   @Input() selected: boolean;
   constructor() { }
 
@@ -16,7 +18,8 @@ export class SelectPillComponent implements OnInit {
   }
 
   onSelect() {
-    this.select.emit(this.pillName);
+    console.log(this.pillID);
+    this.select.emit(this.pillID);
     this.selected = !this.selected;
   }
 }

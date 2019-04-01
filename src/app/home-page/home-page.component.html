@@ -1,4 +1,4 @@
-<svg-icon (click)="nextPage()" [applyCss]="true" class="arrow-bot" src="../../assets/arrow-bot.svg" [svgStyle]="{ 'width.em': 2, 'height.em': 1 }"></svg-icon>
+<svg-icon *ngIf="disableLoading" (click)="nextPage()" [applyCss]="true" class="arrow-bot" src="../../assets/arrow-bot.svg" [svgStyle]="{ 'width.em': 2, 'height.em': 1 }"></svg-icon>
 <header [@enterAnimation] id="menu" [ngClass]="{'non-first': !disableMenu}">
   <div class="top-left">
     <span>
@@ -7,7 +7,7 @@
     </span>
   </div>
   <div [@enterAnimation] *ngIf="disableMenu" class="top-middle">
-    <h1 ><span><svg-icon src="../../assets/nano-logo-5.svg" [svgStyle]="{ 'width.em': 5}"></svg-icon></span> </h1>
+    <h1 ><span><svg-icon src="../../assets/nano-logo-5.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5}"></svg-icon></span> </h1>
   </div>
   <div class="top-right">
     <span>
@@ -23,13 +23,13 @@
 <div fullpage id="fullpage" [options]="config" (ref)="getRef($event)" #fullpageRef>
   <div class="section">
     <div>
-      
+
     </div>
     <section class="story">
-      <div>
+      <div class="fade-in">
           <h1><span>Nano Design</span></h1>
       </div>
-      
+
 
     </section>
   </div>
@@ -56,24 +56,24 @@
     <section class="product">
       <div class="left-container">
         <div class="product-card">
-          <img class="card-img-top" src="../assets/computer.jpg" alt="Card image cap">
+          <img class="card-img-top" src="../assets/gamingPC.jpg" alt="Card image cap">
           <div class="card-body">
             <small class="card-title">Gaming Computer</small>
             <p class="card-text">{{ 'GAMING_DES' | translate}}</p>
             <div class="text-center">
-              <button href="#" class="btn-card" (click)="handleSelect('game')">LEARN MORE</button>
+              <button href="#" class="btn-card" (click)="nextGame()">LEARN MORE</button>
             </div>
           </div>
         </div>
       </div>
       <div class="right-container">
         <div class="product-card">
-          <img class="card-img-top" src="../assets/computer.jpg" alt="Card image cap">
+          <img class="card-img-top" src="../assets/workPC.jpg" alt="Card image cap">
           <div class="card-body">
             <small class="card-title">Work Station</small>
             <p class="card-text">{{ 'WORK_DES' | translate}}</p>
             <div class="text-center">
-              <button href="#" class="btn-card" (click)="handleSelect('game')">LEARN MORE</button>
+              <button href="#" class="btn-card" (click)="nextWork()">LEARN MORE</button>
             </div>
           </div>
         </div>
@@ -82,11 +82,11 @@
   </div>
   <div class="section">
     <section class="options">
-      <div class="select-options">
-        <button [@enterAnimation] (click)="getResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">GET RESULT</button>
         <div class="title">
-          <p> What Kind of games are you planning to play?</p>
-        </div>
+            <p> What Kind of games are you planning to play?</p>
+          </div>
+      <div class="select-options">
+
         <!-- <div class="swiper-container" [swiper]="swipperConfig">
 
             <div class="swiper-wrapper">
@@ -95,47 +95,54 @@
               </div>
             </div>
           </div> -->
+        <div (click)="switchTab()" class="switch-tab">Switch to work</div>
         <div #container class="options-container">
           <ng-container *ngFor="let game of gameList">
-            <select-pill [imgLink]="'../../assets/gameLogo/' + game + '.jpg'" [pillName]="game"
-              [selected]="selectedList.includes(game)" (select)="pillSelect($event)"></select-pill>
+            <select-pill [imgLink]="'../../assets/gameLogo/' + game.id + '.jpg'" [pillID]="game.id" [pillName]="game.name"
+              [selected]="selectedList.includes(game.id)" (select)="pillSelect($event)"></select-pill>
           </ng-container>
         </div>
 
-
+        <button [@enterAnimation] (click)="getResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">GET RESULT</button>
         <!-- <button (click)="scrollToTop(container)">scroll to top</button> -->
         <!-- <button (click)="scrollToBot(container)">scroll to bottom</button> -->
-        <form class="form-inline md-form form-sm">
-            <svg-icon (click)="scrollToBot(container)" src="../../assets/select-up.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
-            <svg-icon (click)="scrollToTop(container)" src="../../assets/select-down.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
+        <form class="custom-form form-inline md-form form-sm">
+            <div>
+                <svg-icon [applyCss]="true" (click)="scrollToBot(container)" src="../../assets/select-up.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
+                <svg-icon [applyCss]="true" (click)="scrollToTop(container)" src="../../assets/select-down.svg" [svgStyle]="{ 'width.em': 2 }"></svg-icon>
+            </div>
           <input [formControl]="searchField" class="form-control form-control-sm ml-3 w-75" type="text"
             placeholder="Search" aria-label="Search">
           <i class="fas fa-search" aria-hidden="true"></i>
         </form>
+
       </div>
 
-      <div class="result-options">
-        <svg-icon [@loadAnimation] *ngIf="loading" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 1.5 }"></svg-icon> 
-        <div [@loadAnimation] *ngIf="!loading" class="configuration">
+      <div *ngIf="!mobile" class="result-options">
+        <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 1.5 }"></svg-icon>
+        <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
+          <p>Please first select your games !!!!!</p>
+        </div>
+        <div [@loadAnimation] *ngIf="loading === 'result'" class="configuration">
           <div class="parts">
-            <svg-icon src="../../assets/config-cpu.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <svg-icon src="../../assets/CPU.svg" [svgStyle]="{ 'width.em': 5, 'height.em': 5 }"></svg-icon>
             <div class="parts-title">
                 <span>CPU</span>
                 <p>{{result.cpu}}</p>
             </div>
           </div>
           <div class="parts">
-            <svg-icon src="../../assets/config-gpu.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <svg-icon src="../../assets/GPU.svg" [svgStyle]="{ 'width.em': 5 ,'height.em': 5 }"></svg-icon>
             <div class="parts-title">
                 <span>Graphics Card</span>
                 <p>{{result.gpu}}</p>
             </div>
           </div>
           <div class="parts">
-            <svg-icon src="../../assets/config-case.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <svg-icon src="../../assets/config-ram.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
             <div class="parts-title">
                 <span>Case</span>
-                <p>Up to 9th Gen Intel® Core™ i9 9900K</p>
+                <p>{{result.mem}}</p>
             </div>
           </div>
           <div class="parts">
@@ -145,7 +152,127 @@
                 <p>{{result.mem}}</p>
             </div>
           </div>
+          <div class="parts">
+              <svg-icon src="../../assets/config-ram.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+              <div class="parts-title">
+                  <span>Memorey</span>
+                  <p>{{result.mem}}</p>
+              </div>
+            </div>
+            <div class="parts">
+                <svg-icon src="../../assets/PSU.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+                <div class="parts-title">
+                    <span>Power Supply</span>
+                    <p>{{result.psu[0]}}</p>
+                    <p>Total Power: {{result.psu[1]}}W</p>
+                </div>
+              </div>
         </div>
+        <div class="estimate">
+          <h1 *ngIf="loading === 'result'"> ESTIMATE PRICE: ${{result.price}}</h1>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">CONTACT US</button>
+          <div class="modal fade" id="myModal" role="dialog" style="position: absolute;;">
+              <div class="modal-dialog">
+
+                 <!-- Modal content-->
+                 <div class="modal-content">
+                    <div class="modal-body">
+                       <img src="../../assets/wechat.jpg">
+                       <p>Email: xxxxx@gmail.com</p>
+                       <p>Phone: 1-647-782-2427</p>
+                       <div> Follow us on</div>
+                    </div>
+                    <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                 </div>
+              </div>
+           </div>
+    </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div *ngIf="mobile" class="section">
+    <section class="options">
+        <div class="title">
+            <p> What Kind of games are you planning to play?</p>
+          </div>
+
+      <div class="result-options">
+        <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 1.5 }"></svg-icon>
+        <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
+          <p>Please first select your games !!!!!</p>
+        </div>
+        <div [@loadAnimation] *ngIf="loading === 'result'" class="configuration">
+          <div class="parts">
+            <svg-icon src="../../assets/CPU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5, 'height.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>CPU</span>
+                <p>{{result.cpu}}</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/GPU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 ,'height.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>Graphics Card</span>
+                <p>{{result.gpu}}</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/config-ram.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>Case</span>
+                <p>{{result.mem}}</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/config-ram.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>Memorey</span>
+                <p>{{result.mem}}</p>
+            </div>
+          </div>
+          <div class="parts">
+              <svg-icon src="../../assets/config-ram.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+              <div class="parts-title">
+                  <span>Memorey</span>
+                  <p>{{result.mem}}</p>
+              </div>
+            </div>
+            <div class="parts">
+                <svg-icon src="../../assets/PSU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+                <div class="parts-title">
+                    <span>Power Supply</span>
+                    <p>{{result.psu[0]}}</p>
+                    <p>Total Power: {{result.psu[1]}}W</p>
+                </div>
+              </div>
+        </div>
+        <div class="estimate">
+          <h1 *ngIf="loading === 'result'"> ESTIMATE PRICE: ${{result.price}}</h1>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">CONTACT US</button>
+          <div class="modal fade" id="myModal" role="dialog" style="position: absolute;;">
+              <div class="modal-dialog">
+
+                 <!-- Modal content-->
+                 <div class="modal-content">
+                    <div class="modal-body">
+                       <img src="../../assets/wechat.jpg">
+                       <p>Email: xxxxx@gmail.com</p>
+                       <p>Phone: 1-647-782-2427</p>
+                       <div> Follow us on</div>
+                    </div>
+                    <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                 </div>
+              </div>
+           </div>
+    </div>
       </div>
 
     </section>

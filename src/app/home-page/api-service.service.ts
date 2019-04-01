@@ -11,9 +11,12 @@ export class ApiServiceService {
   getGames() {
     return this.http.get('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/get_games');
   }
+  getWorks() {
+    return this.http.get('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/get_workstation');
+  }
 
-  postGames(list) {
+  postGames(games, works) {
     return this.http.post('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/postResult',
-    {games: list});
+    {games: games, workstation: works});
   }
 }

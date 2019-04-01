@@ -3,6 +3,14 @@ $navy_blue: #1c1c1c;
 $rice_brown: #c8a175;
 $duck_yello: #fff471;
 $gray_dark: #d8d7d6;
+
+.fp-enabled .modal{
+  position:fixed !important;
+}
+.modal-backdrop.show{
+  z-index: -1;
+}
+
 .arrow-bot{
   position: absolute;
   bottom: 0.25em;
@@ -15,6 +23,27 @@ $gray_dark: #d8d7d6;
     }
   }
 }
+.fade-in {
+	-webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+	        animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+}
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 
 section {
@@ -40,26 +69,67 @@ section {
     color: $navy_blue;
     padding: 0;
     background-color: $gray;
+
     .result-options, .select-options{
-      width: 50%;
-      height: 100%;
+      width: 100%;
+      height: 90%;
+      @media screen and (min-width: 500px) {
+        width: 50%;
+      }
+    }
+    .title{
+      height: 10%;
+      width: 100%;
+      @media screen and (max-width: 500px){
+        height: 8%;
+        font-size: 2em;
+      }
     }
     .result-options{
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+      .estimate{
+        margin: auto;
+      }
+      .modal{
+        top: calc(50% - 7.5em);
+        .modal-content{
+          height: 15em;
+          width: 13em;
+          .modal-body{
+            img{
+              width: 5em;
+            }
+          }
+        }
+      }
       .configuration{
         height: 50%;
-        width: 100%;
+        max-width: 100%;
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
+        background-color: #e3e3e3;
+        /* background-color: white; */
+        border-radius: 0.5em;
+        padding: 1em;
+        margin-right: 1em;
+        margin-left: 0.5em;
+        margin-top: 0.8em;
         .parts{
           width: 50%;
           font-size: 0.35em;
+
           svg-icon{
             float: left;
+            svg{
+              @media screen and (max-width: 500px){
+                width: 8em !important;
+                height: 8em !important;
+              }
+            }
           }
           .parts-title{
             float: left;
@@ -67,12 +137,19 @@ section {
             margin-left: 1em;
             span{
               float: left;
+              @media screen and (max-width: 500px){
+                font-size: 3em;
+              }
             }
             p {
               clear: left;
-              width: 15em;
+              margin-bottom: 0;
+              // width: 12em;
               font-size: 1.4em;
               text-align: left;
+              @media screen and (max-width: 500px){
+                font-size: 4em;
+              }
             }
           }
         }
@@ -83,6 +160,24 @@ section {
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+      .custom-form{
+        flex-flow: row;
+        svg-icon{
+          margin: -0.2em;
+        }
+      }
+      .switch-tab{
+        background-color: #e3e3e3;
+        border-top-left-radius: 0.5em;
+        border-top-right-radius: 0.5em;
+        border-bottom: none;
+        padding-top: 0em;
+        font-size: 0.5em;
+        padding: 0.1em 2.2em 0 2.2em;
+        @media screen and (max-width: 500px){
+          font-size: 1.5em;
+        }
+      }
       .options-container{
         scroll-behavior: smooth;
         display: flex;
@@ -91,7 +186,13 @@ section {
         align-items: center;
         overflow: hidden;
         height: 50%;
-        width: 100%;
+        max-width: 100%;
+        background-color: #e3e3e3;
+        /* margin: 0 1em; */
+        border-radius: 0.5em;
+        margin-left: 1em;
+        margin-right: 0.5em;
+
         select-pill{
           margin: 0.5em;
           position: relative;
@@ -101,7 +202,7 @@ section {
     .btn-card{
       background-color: $navy_blue;
       color: white;
-      margin: 0 auto auto auto;
+      margin: auto auto -5em auto;;
       border-radius: 300px;
       border: none;
       height: 3.5em;
@@ -111,27 +212,57 @@ section {
       font-weight: 100;
       letter-spacing: 0.2em;
       transition: background-color 0.3s ease;
-      position: absolute;
+      // position: absolute;
       right: 2em;
       bottom: 2em;
       &:hover{
         background-color: $rice_brown;
         color: white;
       }
+      @media screen and (max-width: 500px){
+        font-size: 1em;
+      }
     }
 
     .title{
-      margin: 2em auto 0 auto;
+      margin: 1.5em auto 0 auto;
     }
     form{
-      width: 10em;
+
+      width: 12em;
       margin: auto;
+      background-color: #e3e3e3;
+      border-radius: 0.5em;
+      padding: 0 1em 0 0.5em;
+      @media screen and (max-width: 500px) {
+        width: 80%;
+      }
+      svg-icon{
+        svg{
+          @media screen and (max-width: 500px) {
+            width: 6em !important;
+          }
+        }
+
+      }
+      div{
+        padding-right: 0.5em;
+        border-right: solid 1px white;
+      }
       input{
         font-size: 0.5em;
+        padding-bottom: 0;
+        border-bottom: 1px solid #c8c9cb;
+        @media screen and (max-width: 500px){
+          font-size: 1.5em;
+        }
       }
       i{
         font-size: 0.5em;
         color: $navy_blue;
+        @media screen and (max-width: 500px){
+          font-size: 1.2em;
+        }
       }
     }
     .swiper-container{
@@ -193,6 +324,9 @@ section {
     padding: 0;
     div{
       width: 24em;
+      @media screen and (max-width: 500px){
+        width: 32em;
+      }
     }
     small{
       font-family: "utopia-std";
@@ -201,6 +335,9 @@ section {
       font-style: italic;
       font-size: 0.35em;
       color: $navy_blue;
+      @media screen and (max-width: 500px){
+        font-size: 1em;
+      }
     }
     .about-container {
       margin-top: 1.5em;
@@ -208,9 +345,15 @@ section {
     }
     .about-caption{
       font-size: 0.38em;
+      @media screen and (max-width: 500px){
+        font-size: 1.1em
+      }
     }
     .about-title{
       font-size: 1em;
+      @media screen and (max-width: 500px){
+        font-size: 3em;
+      }
       font-weight: 100;
       font-family: sans-serif;
       margin-bottom: 0;
@@ -222,6 +365,10 @@ section {
       letter-spacing: 2px;
       color: $navy_blue;
       margin-bottom: 1em;
+      @media screen and (max-width: 500px){
+        font-size: 1.5em;
+        letter-spacing: 1px;
+      }
     }
   }
   &.story{
@@ -243,14 +390,17 @@ section {
     }
     h1{
       font-size: 1.5em;
-      border-bottom: 0.1em solid white;
+      // border-bottom: 0.1em solid white;
       span{
         color: white;
         font-size: 1.5em;
         font-weight: bold;
+        @media screen and (max-width: 500px){
+          font-size: 2.5em;
+        }
         // border: 0.06em solid;
         // letter-spacing: 0.3em;
-        padding-left: 0.5em;
+        // padding-left: 0.5em;
       }
     }
     background-image: url('../../assets/bg.png');
@@ -409,6 +559,15 @@ header {
          span{
            letter-spacing: -0.16em;
 
+           svg-icon{
+             svg{
+              @media screen and (max-width: 500px){
+                height: 10em !important;
+                width: 10em !important;
+              }
+             }
+           }
+
          }
        }
      }
@@ -418,6 +577,9 @@ header {
          margin: 0.618em;
          padding: 0.618em;
          font-size: 0.85em;
+         @media screen and (max-width: 500px){
+           font-size: 1.5em;
+         }
          transition: background-color 0.3s ease;
          &:hover{
           background-color: $rice_brown;
