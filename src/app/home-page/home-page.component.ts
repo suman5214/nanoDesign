@@ -65,7 +65,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
     pagination: false
   };
 
-  result = { 'cpu' : '', 'gpu': '', 'mem': '', 'price': null, 'psu': []};
+  result = { 'cpu' : '', 'gpu': '', 'mem': '', 'price': null, 'psu': [], 'mb': '', 'ssd': '', 'hdd': ''};
   loading = 'init';
   mobile: boolean;
   constructor(private router: Router, private translate: TranslateService,
@@ -78,6 +78,8 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
       onLeave: (origin, destination, direction) => {
           this.disableMenu = false;
           if (destination.anchor === 'fourthPage') {
+            this.disableLoading = false;
+          } else if (destination.anchor === 'lastPage') {
             this.disableLoading = false;
           } else {
             this.disableLoading = true;
@@ -153,6 +155,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
   }
   switchTab() {
     console.log(this.selectedList);
+    this.searchField.setValue('');
     if (this.switchStatus === 'game') {
       this.switchStatus = 'work';
       this.gameList = this.orginalWorkList;

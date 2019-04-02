@@ -15,7 +15,7 @@ $gray_dark: #d8d7d6;
   position: absolute;
   bottom: 0.25em;
   left: 50%;
-  margin-left: -1.25em;
+  margin-left: -1em;
   z-index: 100;
   svg {
     @media screen and (min-width: 500px){
@@ -143,8 +143,8 @@ section {
             float: left;
             svg{
               @media screen and (max-width: 500px){
-                width: 5em !important;
-                height: 5em !important;
+                width: 8em !important;
+                height: 8em !important;
               }
             }
           }
@@ -166,7 +166,7 @@ section {
               font-size: 1.4em;
               text-align: left;
               @media screen and (max-width: 500px){
-                font-size: 4em;
+                font-size: 3.4em;
               }
             }
           }
@@ -254,7 +254,7 @@ section {
         align-items: center;
         overflow: hidden;
         height: 100%;
-        width: auto;
+        flex-grow: 1;
         background-color: #e3e3e3;
         /* margin: 0 1em; */
         border-radius: 0.5em;
@@ -266,6 +266,9 @@ section {
         select-pill{
           margin: 0.5em;
           position: relative;
+        }
+        p{
+          width: 70%;
         }
       }
     }
@@ -323,6 +326,8 @@ section {
         font-size: 0.5em;
         padding-bottom: 0;
         border-bottom: 1px solid #c8c9cb;
+        width: auto !important;
+        flex-grow: 1;
         @media screen and (max-width: 500px){
           font-size: 1.5em;
         }
@@ -330,6 +335,7 @@ section {
       i{
         font-size: 0.5em;
         color: $navy_blue;
+        margin-left: 0.5em;
         @media screen and (max-width: 500px){
           font-size: 1.2em;
         }
@@ -514,6 +520,118 @@ section {
  section{
   // border: 0.3em solid white;
 
+  &.product-mobile{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0;
+    .product-card{
+      border: none;
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      @media screen and (max-width: 500px){
+        width: 100%;
+      }
+      height: 100%;
+      .img-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .card-title{
+          font-size: 1.5em;
+          margin-bottom: 0.2em;
+        }
+        .btn-card{
+          margin-top: 25%;
+          border-radius: 300px;
+          border: none;
+          height: 3.5em;
+          width: 11em;
+          text-align: center;
+          font-size: 0.7em;
+          font-weight: 100;
+          letter-spacing: 0.2em;
+          transition: background-color 0.3s ease;
+          @media screen and (min-width: 500px){
+          &:hover{
+            background-color: $rice_brown;
+            color: white;
+          }
+        }
+        }
+
+      }
+      img{
+        // margin-top: 30%;
+        width: 9em;
+        height: 9em;
+      }
+      margin: 0 1%;
+      .card-body{
+        margin: 1em 1em;
+        padding: 0;
+        small{
+          font-family: "utopia-std";
+          text-transform: none;
+          letter-spacing: 0;
+          font-style: italic;
+          font-size: 0.35em;
+        }
+        p{
+          font-size: 0.5em;
+          line-height: 1.5em;
+          letter-spacing: 2px;
+          padding-top: 1em;
+          @media screen and (max-width: 500px){
+            font-size: 1.2em;
+            letter-spacing: 1px;
+          }
+        }
+        
+      }
+    }
+    .left-container{
+      background: #c3c2c2;
+      height: 50%;
+      // width: 50%;
+      // max-width: 50%;;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      button{
+        color: $navy_blue;
+        background-color: white
+      }
+      .card-body{
+        margin-top: 2em;
+      }
+    }
+    .right-container{
+      background: $gray;
+      height: 50%;
+      // width: 50%;
+      // max-width: 50%;;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $navy_blue;
+      button{
+        color: white;
+        background-color: $navy_blue;
+      }
+      .card-body{
+        margin-top: 2em;
+      }
+    }
+  }
+
   &.product{
     height: 100%;
     display: flex;
@@ -528,11 +646,14 @@ section {
       }
       height: 100%;
       img{
-        margin-top: 30%;
+        margin-top: 15%;
       }
       margin: 0 1%;
       .card-body{
-        margin: 20% 0;
+        margin: 5% 0;
+        @media screen and (min-width: 2300px){
+          margin: 15% 0;
+        }
         padding: 0;
         small{
           font-family: "utopia-std";
@@ -572,7 +693,7 @@ section {
       }
     }
     .left-container{
-      background: #e3e3e3;
+      background: #c3c2c2;
       height: 100%;
       // width: 50%;
       max-width: 50%;;

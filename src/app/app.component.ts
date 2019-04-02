@@ -20,10 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
-    const width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    window.resizeTo(width, height);
-    console.log(width, height);
   }
 
   prepareRoute(outlet: RouterOutlet) {

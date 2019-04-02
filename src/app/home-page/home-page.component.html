@@ -58,15 +58,15 @@
     </section>
   </div>
   <div class="section">
-    <section class="product">
+    <section *ngIf="!mobile" class="product">
       <div class="left-container">
         <div class="product-card">
           <img class="card-img-top" src="../assets/gamingPC.jpg" alt="Card image cap">
           <div class="card-body">
-            <small class="card-title">Gaming Computer</small>
+            <small class="card-title">{{'GAMING_COMPUTER' | translate}}</small>
             <p class="card-text">{{ 'GAMING_DES' | translate}}</p>
             <div class="text-center">
-              <button href="#" class="btn-card" (click)="nextGame()">LEARN MORE</button>
+              <button href="#" class="btn-card" (click)="nextGame()">{{'LEARN_MORE' | translate}}</button>
             </div>
           </div>
         </div>
@@ -75,20 +75,54 @@
         <div class="product-card">
           <img class="card-img-top" src="../assets/workPC.jpg" alt="Card image cap">
           <div class="card-body">
-            <small class="card-title">Work Station</small>
+            <small class="card-title">{{'Work_Station' | translate}}</small>
             <p class="card-text">{{ 'WORK_DES' | translate}}</p>
             <div class="text-center">
-              <button href="#" class="btn-card" (click)="nextWork()">LEARN MORE</button>
+              <button href="#" class="btn-card" (click)="nextWork()">{{'LEARN_MORE' | translate}}</button>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <section *ngIf="mobile" class="product-mobile">
+      <div class="left-container">
+        <div class="product-card">
+          <div class="img-container">
+              <small class="card-title">{{'GAMING_COMPUTER' | translate}}</small>
+            <img class="card-img-top" src="../assets/gamingPC.jpg" alt="Card image cap">
+            <button href="#" class="btn-card" (click)="nextGame()">{{'LEARN_MORE' | translate}}</button>
+
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ 'GAMING_DES' | translate}}</p>
+            <div class="text-center">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container">
+        <div class="product-card">
+          <div class="card-body">
+            <p class="card-text">{{ 'WORK_DES' | translate}}</p>
+            <div class="text-center">
+            </div>
+          </div>
+          <div class="img-container">
+              <small class="card-title">{{ 'Work_Station' | translate}}</small>
+              <img class="card-img-top" src="../assets/workPC.jpg" alt="Card image cap">
+              <button href="#" class="btn-card" (click)="nextWork()">{{'LEARN_MORE' | translate}}</button>
+
+            </div>
+        </div>
+      </div>
+    </section>
+
   </div>
   <div class="section">
     <section class="options">
         <div class="title">
-            <p> Click on the app to see your config</p>
+            <p> {{'DISPLAY_SOFTWARE_NAME' | translate}}</p>
           </div>
       <div class="select-options">
 
@@ -101,8 +135,8 @@
             </div>
           </div> -->
         <div class="switch-tab">
-          <div (click)="switchTab()" [ngClass]="{'onSwitch': switchStatus === 'game'}" >Games</div>
-          <div (click)="switchTab()" [ngClass]="{'onSwitch': switchStatus === 'work'}">Office</div>
+          <div (click)="switchTab()" [ngClass]="{'onSwitch': switchStatus === 'game'}" >{{'GAME_LIST' | translate}}</div>
+          <div (click)="switchTab()" [ngClass]="{'onSwitch': switchStatus === 'work'}">{{'OFFICE_LIST' | translate}}</div>
         </div>
 
         <div class="switch-container">
@@ -115,11 +149,12 @@
                   <select-pill [imgLink]="'../../assets/gameLogo/' + game.id + '.jpg'" [pillID]="game.id" [pillName]="game.name"
                     [selected]="selectedList.includes(game.id)" (select)="pillSelect($event)"></select-pill>
                 </ng-container>
+                <p *ngIf="gameList.length === 0">{{'SEARCH_ERROR' | translate}}</p>
               </div>
         </div>
 
 
-        <button [@enterAnimation] (click)="getResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">GET RESULT</button>
+        <button [@enterAnimation] (click)="getResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">{{'GET_RESULT' | translate}}</button>
         <!-- <button (click)="scrollToTop(container)">scroll to top</button> -->
         <!-- <button (click)="scrollToBot(container)">scroll to bottom</button> -->
         <form class="custom-form form-inline md-form form-sm">
@@ -134,57 +169,98 @@
       <div *ngIf="!mobile" class="result-options">
         <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 3, 'height.em': 3, 'margin-top.em': 5 }"></svg-icon>
         <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
-          <p>Select some Apps to get your result</p>
+            <div class="parts">
+            <svg-icon src="../../assets/CPU.svg" [svgStyle]="{ 'width.em': 5, 'height.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>{{'CPU' | translate}}</span>
+                <p>???</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/GPU.svg" [svgStyle]="{ 'width.em': 5 ,'height.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>{{'Graphic_card' | translate}}</span>
+                <p>???</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/MB.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>{{'MOTHERBOARD' | translate}}</span>
+                <p>???</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/MEM.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>{{'MEM' | translate}}</span>
+                <p>???</p>
+            </div>
+          </div>
+          <div class="parts">
+              <svg-icon src="../../assets/SSD.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+              <div class="parts-title">
+                  <span>{{'Storage' | translate}}</span>
+                  <p>???</p>
+              </div>
+            </div>
+            <div class="parts">
+                <svg-icon src="../../assets/PSU.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+                <div class="parts-title">
+                    <span>{{'Power_Supply' | translate}}</span>
+                    <p>???</p>
+                </div>
+              </div>
         </div>
         <div [@loadAnimation] *ngIf="loading === 'result'" class="configuration">
           <div class="parts">
             <svg-icon src="../../assets/CPU.svg" [svgStyle]="{ 'width.em': 5, 'height.em': 5 }"></svg-icon>
             <div class="parts-title">
-                <span>CPU</span>
+                <span>{{'CPU' | translate}}</span>
                 <p>{{result.cpu}}</p>
             </div>
           </div>
           <div class="parts">
             <svg-icon src="../../assets/GPU.svg" [svgStyle]="{ 'width.em': 5 ,'height.em': 5 }"></svg-icon>
             <div class="parts-title">
-                <span>Graphics Card</span>
+                <span>{{'Graphic_card' | translate}}</span>
                 <p>{{result.gpu}}</p>
             </div>
           </div>
           <div class="parts">
-            <svg-icon src="../../assets/config-ram.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <svg-icon src="../../assets/MB.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
             <div class="parts-title">
-                <span>Case</span>
+                <span>{{'MOTHERBOARD' | translate}}</span>
+                <p>{{result.mb}}</p>
+            </div>
+          </div>
+          <div class="parts">
+            <svg-icon src="../../assets/MEM.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+            <div class="parts-title">
+                <span>{{'MEM' | translate}}</span>
                 <p>{{result.mem}}</p>
             </div>
           </div>
           <div class="parts">
-            <svg-icon src="../../assets/config-ram.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
-            <div class="parts-title">
-                <span>Memorey</span>
-                <p>{{result.mem}}</p>
-            </div>
-          </div>
-          <div class="parts">
-              <svg-icon src="../../assets/config-ram.svg" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+              <svg-icon src="../../assets/SSD.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
               <div class="parts-title">
-                  <span>Memorey</span>
-                  <p>{{result.mem}}</p>
+                  <span>{{'Storage' | translate}}</span>
+                  <p>{{result.ssd}}</p>
               </div>
             </div>
             <div class="parts">
                 <svg-icon src="../../assets/PSU.svg" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
                 <div class="parts-title">
-                    <span>Power Supply</span>
+                    <span>{{'Power_Supply' | translate}}</span>
                     <p>{{result.psu[0]}}</p>
                     <p>Total Power: {{result.psu[1]}}W</p>
                 </div>
               </div>
         </div>
         <div class="estimate">
-          <h1 *ngIf="loading === 'result'"> ESTIMATE PRICE: ${{result.price}}</h1>
+          <h1 *ngIf="loading === 'result'"> {{'ESTIMATE_PRICE' | translate}}: ${{result.price[0]}}</h1>
           <!-- Button trigger modal -->
-          <button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">CONTACT US</button>
+          <button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">{{'CONTACT_US' | translate}}</button>
           <div class="modal fade" id="myModal" role="dialog" style="position: absolute;;">
               <div class="modal-dialog">
 
@@ -210,64 +286,109 @@
 
   <div *ngIf="mobile" class="section">
     <section class="options">
-        <!-- <div class="title">
-            <p> Select some Apps to get your result</p>
-          </div> -->
-
       <div class="result-options">
         <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 3, 'height.em': 3, 'margin-top.em': 5 }"></svg-icon>
         <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
-          <p>Select some Apps to get your result</p>
+            <div class="parts">
+                <svg-icon src="../../assets/CPU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 8, 'height.em': 8 }"></svg-icon>
+                <div class="parts-title">
+                    <span>{{'CPU' | translate}}</span>
+                    <p>???</p>
+                </div>
+              </div>
+  
+              <div class="parts">
+                <svg-icon src="../../assets/GPU.svg" [svgStyle]="{ 'width.em': 9 ,'height.em': 9 }"></svg-icon>
+                <div class="parts-title">
+                    <span>{{'Graphic_card' | translate}}</span>
+                    <p>???</p>
+                </div>
+              </div>
+              <div class="parts">
+                <svg-icon src="../../assets/MB.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 , 'height.em': 5 }"></svg-icon>
+                <div class="parts-title">
+                    <span>{{'MOTHERBOARD' | translate}}</span>
+                    <p>???</p>
+                </div>
+              </div>
+              <div class="parts">
+                <svg-icon src="../../assets/MEM.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+                <div class="parts-title">
+                  <span>{{'MEM' | translate}}</span>
+                  <p>???</p>
+                </div>
+              </div>
+              
+  
+              <div class="parts">
+                  <svg-icon src="../../assets/SSD.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+                  <div class="parts-title">
+                      <span>{{'Storage' | translate}}</span>
+                      <p>???</p>
+                  </div>
+                </div>
+                <div class="parts">
+                    <svg-icon src="../../assets/PSU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+                    <div class="parts-title">   
+                        <span>{{'Power_Supply' | translate}}</span>                      
+                        <p>???</p>
+                    </div>
+                  </div>
         </div>
         <div [@loadAnimation] *ngIf="loading === 'result'" class="configuration">
-          <div class="parts">
-            <svg-icon src="../../assets/config-cpu.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5, 'height.em': 5 }"></svg-icon>
-            <div class="parts-title">
-                <span>CPU</span>
-                <p>{{result.cpu}}</p>
-            </div>
-          </div>
-          <div class="parts">
-            <svg-icon src="../../assets/config-gpu.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 ,'height.em': 5 }"></svg-icon>
-            <div class="parts-title">
-                <span>Graphics Card</span>
-                <p>{{result.gpu}}</p>
-            </div>
-          </div>
-          <div class="parts">
-            <svg-icon src="../../assets/config-ram.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
-            <div class="parts-title">
-                <span>Case</span>
-                <p>{{result.mem}}</p>
-            </div>
-          </div>
-          <div class="parts">
-            <svg-icon src="../../assets/config-ram.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
-            <div class="parts-title">
-                <span>Memorey</span>
-                <p>{{result.mem}}</p>
-            </div>
-          </div>
-          <div class="parts">
-              <svg-icon src="../../assets/config-ram.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+            <div class="parts">
+              <svg-icon src="../../assets/CPU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 8, 'height.em': 8 }"></svg-icon>
               <div class="parts-title">
-                  <span>Memorey</span>
-                  <p>{{result.mem}}</p>
+                  <span>{{'CPU' | translate}}</span>
+                  <p>{{result.cpu}}</p>
+              </div>
+            </div>
+
+            <div class="parts">
+              <svg-icon src="../../assets/GPU.svg" [svgStyle]="{ 'width.em': 9 ,'height.em': 9 }"></svg-icon>
+              <div class="parts-title">
+                  <span>{{'Graphic_card' | translate}}</span>
+                  <p>{{result.gpu}}</p>
               </div>
             </div>
             <div class="parts">
-                <svg-icon src="../../assets/config-ram.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+              <svg-icon src="../../assets/MB.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 , 'height.em': 5 }"></svg-icon>
+              <div class="parts-title">
+                  <span>{{'MOTHERBOARD' | translate}}</span>
+                  <p>{{result.mb}}</p>
+              </div>
+            </div>
+            <div class="parts">
+              <svg-icon src="../../assets/MEM.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
+              <div class="parts-title">
+                <span>{{'MEM' | translate}}</span>
+                <p>{{result.mem}}</p>
+              </div>
+            </div>
+            
+
+            <div class="parts">
+                <svg-icon src="../../assets/SSD.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
                 <div class="parts-title">
-                    <span>Power Supply</span>
-                    <p>{{result.psu[0]}}</p>
-                    <p>{{result.psu[1]}}W Power</p>
+                    <span>{{'Storage' | translate}}</span>
+                    <p>{{result.ssd}}</p>
                 </div>
               </div>
-        </div>
+              <div class="parts">
+                  <svg-icon src="../../assets/PSU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
+                  <div class="parts-title">   
+                      <span>{{'Power_Supply' | translate}}</span>                      
+                      <p>{{result.psu[0]}}</p>
+                      <p>Total Power: {{result.psu[1]}}W</p>
+                  </div>
+                </div>
+          </div>
+          
         <div class="estimate">
-          <h1 *ngIf="loading === 'result'"> ESTIMATE PRICE: ${{result.price}}</h1>
+          <h1 *ngIf="loading === 'result'"> {{'ESTIMATE_PRICE' | translate}}: ${{result.price[0]}}</h1>
           <!-- Button trigger modal -->
-          <button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">CONTACT US</button>
+
+<button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">{{'CONTACT_US' | translate}}</button>
           <div class="modal fade" id="myModal" role="dialog" style="position: absolute;;">
               <div class="modal-dialog">
 
