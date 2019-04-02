@@ -1,19 +1,29 @@
 <svg-icon *ngIf="disableLoading" (click)="nextPage()" [applyCss]="true" class="arrow-bot" src="../../assets/arrow-bot.svg" [svgStyle]="{ 'width.em': 2, 'height.em': 1 }"></svg-icon>
 <header [@enterAnimation] id="menu" [ngClass]="{'non-first': !disableMenu}">
-  <div *ngIf="!mobile" class="top-left">
+  <div *ngIf="!mobile && disableMenu" class="top-left">
     <span>
-      <a>STORY</a>
-      <a>GALLERY</a>
+      <a [ngClass]="{'active': activeSlide === 'secondPage'}" (click)="fullpage_api.moveTo(2)" >{{ "US" | translate}}</a>
+      <a [ngClass]="{'active': activeSlide === 'thirdPage'}" (click)="fullpage_api.moveTo(3)" >{{"GALLERY" | translate}}</a>
     </span>
   </div>
   <div [@enterAnimation] *ngIf="disableMenu && !mobile" class="top-middle">
     <h1 ><span><svg-icon src="../../assets/nano-logo-5.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5}"></svg-icon></span> </h1>
   </div>
-  <div class="top-right">
+  <div class="top-right" *ngIf="!mobile && disableMenu">
     <span>
-      <a *ngIf="mobile">STORY</a>
-      <a *ngIf="mobile">GALLERY</a>
-      <a>CONTACT</a>
+      <a [ngClass]="{'active': activeSlide === 'fourthPage'}" (click)="fullpage_api.moveTo(4)">{{"CONFIG" | translate}}</a>
+      <a (click)="changeLanguage()">LANGUAGE
+        <svg-icon *ngIf="translate.currentLang === 'en' " src="../../assets/canada.svg" [svgStyle]="{ 'width.em': 2, 'padding-left.em': 0.25, 'padding-bottom.em': 0.25}"></svg-icon>
+        <svg-icon *ngIf="translate.currentLang === 'cn' " src="../../assets/china.svg" [svgStyle]="{ 'width.em': 2, 'padding-left.em': 0.25, 'padding-bottom.em': 0.25}"></svg-icon>
+      </a>
+    </span>
+  </div>
+
+  <div class="top-right" *ngIf="mobile || !disableMenu">
+    <span>
+      <a [ngClass]="{'active': activeSlide === 'secondPage'}" (click)="fullpage_api.moveTo(2)" >{{ "US" | translate}}</a>
+      <a [ngClass]="{'active': activeSlide === 'thirdPage'}" (click)="fullpage_api.moveTo(3)" >{{"GALLERY" | translate}}</a>
+      <a [ngClass]="{'active': activeSlide === 'fourthPage' || activeSlide === 'lastPage'}" (click)="fullpage_api.moveTo(4)">{{"CONFIG" | translate}}</a>
       <a (click)="changeLanguage()">LANGUAGE
         <svg-icon *ngIf="translate.currentLang === 'en' " src="../../assets/canada.svg" [svgStyle]="{ 'width.em': 2, 'padding-left.em': 0.25, 'padding-bottom.em': 0.25}"></svg-icon>
         <svg-icon *ngIf="translate.currentLang === 'cn' " src="../../assets/china.svg" [svgStyle]="{ 'width.em': 2, 'padding-left.em': 0.25, 'padding-bottom.em': 0.25}"></svg-icon>
@@ -270,9 +280,12 @@
                        <img src="../../assets/wechat.jpg">
                        <p>Email: xxxxx@gmail.com</p>
                        <p>Phone: 1-647-782-2427</p>
-                       <div> Follow us on</div>
-                    </div>
-                    <div class="modal-footer">
+                       <div> Get in touch with us</div>
+                      <form class="form-inline md-form form-sm">
+                        <input placeholder="name" class="form-control form-control-sm ml-3 w-75" type="text">
+                        <input placeholder="E-mail" class="form-control form-control-sm ml-3 w-75" type="text">
+                        <input placeholder="Message" class="form-control form-control-sm ml-3 w-75" type="text">
+                      </form>
                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                  </div>
@@ -296,7 +309,7 @@
                     <p>???</p>
                 </div>
               </div>
-  
+
               <div class="parts">
                 <svg-icon src="../../assets/GPU.svg" [svgStyle]="{ 'width.em': 9 ,'height.em': 9 }"></svg-icon>
                 <div class="parts-title">
@@ -318,8 +331,8 @@
                   <p>???</p>
                 </div>
               </div>
-              
-  
+
+
               <div class="parts">
                   <svg-icon src="../../assets/SSD.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
                   <div class="parts-title">
@@ -329,8 +342,8 @@
                 </div>
                 <div class="parts">
                     <svg-icon src="../../assets/PSU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
-                    <div class="parts-title">   
-                        <span>{{'Power_Supply' | translate}}</span>                      
+                    <div class="parts-title">
+                        <span>{{'Power_Supply' | translate}}</span>
                         <p>???</p>
                     </div>
                   </div>
@@ -365,7 +378,7 @@
                 <p>{{result.mem}}</p>
               </div>
             </div>
-            
+
 
             <div class="parts">
                 <svg-icon src="../../assets/SSD.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5 }"></svg-icon>
@@ -376,14 +389,14 @@
               </div>
               <div class="parts">
                   <svg-icon src="../../assets/PSU.svg" [applyCss]="true" [svgStyle]="{ 'width.em': 5,'height.em': 5 }"></svg-icon>
-                  <div class="parts-title">   
-                      <span>{{'Power_Supply' | translate}}</span>                      
+                  <div class="parts-title">
+                      <span>{{'Power_Supply' | translate}}</span>
                       <p>{{result.psu[0]}}</p>
                       <p>Total Power: {{result.psu[1]}}W</p>
                   </div>
                 </div>
           </div>
-          
+
         <div class="estimate">
           <h1 *ngIf="loading === 'result'"> {{'ESTIMATE_PRICE' | translate}}: ${{result.price[0]}}</h1>
           <!-- Button trigger modal -->

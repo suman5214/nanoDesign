@@ -3,6 +3,32 @@
   font-family: alternate-gothic;
   src: url(assets/fonts/gothic.otf) format("opentype");
 }
+@font-face{
+  font-family: alternate-gothic;
+  src: url(assets/fonts/gothic.otf) format("opentype");
+}
+@font-face{
+  font-family: alternate-gothic;
+  src: url(assets/fonts/gothic.otf) format("opentype");
+}
+@font-face{
+  font-family: gogoia;
+  src: url(assets/fonts/gogoia.otf) format("opentype");
+}
+@font-face{
+  font-family: simplifica;
+  src: url(assets/fonts/simplifica.ttf) format("truetype");
+}
+
+@font-face{
+  font-family: break;
+  src: url(assets/fonts/break_regular.ttf) format("truetype");
+}
+@font-face{
+  font-family: dosis;
+  src: url(assets/fonts/Dosis-Light.otf) format("opentype");
+}
+
 @import '~swiper/dist/css/swiper.min.css';
 // change default css
 .fp-controlArrow {

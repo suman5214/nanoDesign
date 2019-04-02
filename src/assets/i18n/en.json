@@ -21,5 +21,8 @@
   "ESTIMATE":"ESTIMATE PRICE",
   "CONTACT_US":"CONTACT US",
   "SEARCH":"Search",
-  "SEARCH_ERROR":"Did not find the need, please contact our custome service for details! Thanks for your patience!"
+  "SEARCH_ERROR":"Did not find the need, please contact our custome service for details! Thanks for your patience!",
+  "US": "NANO",
+  "GALLERY" : "GALLERY",
+  "CONFIG" : "CONFIG"
 }

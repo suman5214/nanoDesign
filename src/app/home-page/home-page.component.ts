@@ -22,7 +22,7 @@ import { ChangeDetectorRef } from '@angular/core';
       'enterAnimation', [
         transition(':enter', [
           style({transform: 'translateY(-20px)',  opacity: 0}),
-          animate('0.5s 0.7s ease-in', style({transform: 'translateY(0)', opacity: 1}))
+          animate('0.5s 0.3s ease-in', style({transform: 'translateY(0)', opacity: 1}))
         ])
       ]
     ),
@@ -46,13 +46,14 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
   visible = false;
   searchField = new FormControl();
   orginalGameList: any = [];
-  gameList: any;
+  gameList: any = [];
   orginalWorkList: any = [];
   workList: any;
   selectedList: any;
   switchStatus = 'game';
   screenWidth: number;
   lastSection = false;
+  activeSlide = '';
   @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
 
   public swipperConfig: SwiperConfigInterface = {
@@ -84,6 +85,9 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
           } else {
             this.disableLoading = true;
           }
+
+          this.activeSlide = destination.anchor;
+
       },
       // events callback
       afterLoad: (origin, destination, direction) => {

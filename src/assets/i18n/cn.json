@@ -12,7 +12,7 @@
   "OFFICE_LIST":"办公软件",
   "GET_RESULT":"生成配置",
   "ESTIMATE_PRICE":"预估价格",
-  "CPU":"中央处理器",
+  "CPU":"CPU处理器",
   "Graphic_card":"显卡",
   "MOTHERBOARD":"主板",
   "MEM":"内存",
@@ -21,5 +21,8 @@
   "ESTIMATE":"预估价格",
   "CONTACT_US":"联系我们",
   "Search":"查找",
-  "SEARCH_ERROR":"抱歉未能找到您的需求软件，请联系客服为您耐心解答哦!"
+  "SEARCH_ERROR":"抱歉未能找到您的需求软件，请联系客服为您耐心解答哦!",
+  "US": "关于我们",
+  "GALLERY" : "展示",
+  "CONFIG" : "定制"
 }
