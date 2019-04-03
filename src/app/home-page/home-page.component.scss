@@ -66,6 +66,7 @@ section {
   &.options{
     height: 100%;
     width: 100%;
+    font-family: dosis;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -102,18 +103,148 @@ section {
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+      .switch-tab{
+
+        // border-top-left-radius: 0.5em;
+        // border-top-right-radius: 0.5em;
+        border-bottom: none;
+        padding-top: 0em;
+        font-size: 0.5em;
+        padding: 0.1em 0 0 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        margin-left: auto;
+        margin-right: 3.5em;
+        @media screen and (max-width: 500px){
+          margin-right: 1.5em;
+          font-size: 1.4em;
+        }
+        div{
+          padding: 0 1em;
+          border-top-left-radius: 0.5em;
+          border-top-right-radius: 0.5em;
+          border-right: 2px solid #acacac;
+          border-top: 1px solid #c7c3c3;
+          background-color: #bdbdbd
+        }
+        .onSwitch{
+          background-color: #e3e3e3;
+        }
+        @media screen and (max-width: 500px){
+          font-size: 1.5em;
+        }
+      }
+
       .estimate{
         margin: auto;
       }
       .modal{
         top: calc(50% - 7.5em);
+
+        @media screen and (max-width: 500px){
+          top: calc(50% - 15.5em);
+        }
         .modal-content{
           height: 15em;
           width: 13em;
+          @media screen and (max-width: 500px){
+            height: 35em;
+            width: 28em;
+          }
           background-color: #313840;
           color: #8a8a8a;;
           font-family: dosis;
           .modal-body{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            div{
+              width: 100%;
+              button{
+                background-color: #313840;
+                border: none;
+                border: 2px solid #8a8a8a;
+                color: #8a8a8a;
+                font-size: 0.4em;
+                padding: 0;
+                margin: 0;
+                height: unset;
+                width: 4em;
+                @media screen and (max-width: 500px){
+                  font-size: 1em;
+                }
+              }
+            }
+            .title{
+              width: 100%;
+              margin: 0;
+              @media screen and (max-width: 500px){
+                font-size: 1.8em;
+              }
+            }
+            .contact{
+              display: flex;
+              flex-direction: row;
+              justify-content: space-evenly;
+              
+              p{
+                width: auto;
+              }
+              @media screen and (max-width: 500px){
+                font-size: 2em;
+                p{
+                  width: 100%;
+                  text-align: center;
+                }
+                flex-wrap: wrap;
+              }
+            }
+            .wechat{
+              width: 50%;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              @media screen and (max-width: 500px){
+                font-size: 2em;
+              }
+              svg-icon{
+                margin-left: auto;
+              }
+              p{
+                width: auto;
+              }
+              img{
+                width: 2.5em;
+                margin-left: 0.8em;
+                margin-right: auto;
+              }
+            }
+            .instagram{
+              width: 50%;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              @media screen and (max-width: 500px){
+                font-size: 2em;
+              }
+              svg-icon{
+                margin-left: auto;
+              }
+              p{
+                width: auto;
+                margin: 0;
+                margin-left: 1em;
+                margin-top: 7px;
+                margin-right: auto;
+              }
+            }
+            p{
+              font-size: 0.6em;
+              width: 100%;
+              text-align: left;
+            }
             img{
               width: 5em;
             }
@@ -144,7 +275,7 @@ section {
           margin-left: 1em;
           width: 90%
         }
-        margin-top: 0.8em;
+        // margin-top: 0.8em;
         .parts{
           width: 50%;
           font-size: 0.35em;
@@ -400,6 +531,7 @@ section {
     }
   }
   &.about{
+    font-family: dosis;
     height: 100%;
     width: 100%;
     display: flex;
@@ -489,9 +621,9 @@ section {
       // border-bottom: 0.1em solid white;
       span{
         color: white;
-        font-size: 1.8em;
+        font-size: 1.5em;
         font-weight: bold;
-        font-family: 'break';
+        // font-family: 'break';
         @media screen and (max-width: 500px){
           font-size: 2em;
         }
@@ -536,6 +668,7 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    font-family: dosis;
     padding: 0;
     .product-card{
       border: none;
@@ -648,6 +781,7 @@ section {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    font-family: dosis;
     padding: 0;
     .product-card{
       border: none;

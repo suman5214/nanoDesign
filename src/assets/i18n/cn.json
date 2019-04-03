@@ -24,5 +24,8 @@
   "SEARCH_ERROR":"抱歉未能找到您的需求软件，请联系客服为您耐心解答哦!",
   "US": "关于我们",
   "GALLERY" : "展示",
-  "CONFIG" : "定制"
+  "CONFIG" : "定制",
+  "MINIMUN" : "基本",
+  "RECOMEND" : "推荐",
+  "PREMIUM" : "旗舰"
 }

@@ -45,6 +45,9 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
   disableLoading = true;
   visible = false;
   searchField = new FormControl();
+  name = new FormControl();
+  email = new FormControl();
+  msg = new FormControl();
   orginalGameList: any = [];
   gameList: any = [];
   orginalWorkList: any = [];
@@ -54,6 +57,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
   screenWidth: number;
   lastSection = false;
   activeSlide = '';
+  requirement = 'basic';
   @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
 
   public swipperConfig: SwiperConfigInterface = {
@@ -220,6 +224,12 @@ nextWork() {
   this.switchStatus = 'work';
   this.fullpage_api.moveSectionDown();
 }
+changeRequire( require) {
+  this.requirement = require;
+  if (this.selectedList.length > 0) {
+    this.getResult();
+  }
+}
 convertRemToPixels(rem: number): number {
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
@@ -229,6 +239,24 @@ convertRemToPixels(rem: number): number {
   }
   scrollToBot(el) {
     el.scrollTop = el.scrollTop - this.convertRemToPixels(15);
+  }
+
+  sendMsg() {
+    let name;
+    let email;
+    let msg;
+    this.name.value === null ? name = '' : name = this.name.value;
+    this.email.value === null ? email = '' : email = this.email.value;
+    this.msg.value === null ? msg = '' : msg = this.msg.value;
+    this.apiService.postMsg(name, email, msg).subscribe( res => {
+      console.log(res);
+    });
+  }
+  onFocus() {
+    this.fullpage_api.rebuild();
+  }
+  onBlur() {
+    this.fullpage_api.rebuild();
   }
 
   getResult() {
@@ -251,7 +279,7 @@ convertRemToPixels(rem: number): number {
         works.push(data.id);
       }
     });
-    this.apiService.postGames(games, works).toPromise().then( res => {
+    this.apiService.postGames(games, works, this.requirement).toPromise().then( res => {
       console.log(res);
 
     Object.keys(res).forEach(key => {

@@ -15,8 +15,13 @@ export class ApiServiceService {
     return this.http.get('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/get_workstation');
   }
 
-  postGames(games, works) {
+  postGames(games, works, requirement) {
     return this.http.post('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/postResult',
-    {games: games, workstation: works});
+    {games: games, workstation: works, richlvl: [requirement]});
+  }
+
+  postMsg(name, email, msg) {
+    return this.http.post('https://us-central1-nanodesign-1d2cb.cloudfunctions.net/store_info',
+    {info: [name, email, msg]});
   }
 }

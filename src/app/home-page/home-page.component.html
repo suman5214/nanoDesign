@@ -177,6 +177,12 @@
       </div>
 
       <div *ngIf="!mobile" class="result-options">
+        <div class="switch-tab">
+              <div (click)="changeRequire('basic')" [ngClass]="{'onSwitch': requirement === 'basic'}" >{{'MINIMUN' | translate}}</div>
+              <div (click)="changeRequire('Premium')" [ngClass]="{'onSwitch': requirement === 'Premium'}" >{{'RECOMEND' | translate}}</div>
+              <div (click)="changeRequire('Esports')" [ngClass]="{'onSwitch': requirement === 'Esports'}">{{'PREMIUM' | translate}}</div>
+        </div>
+
         <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 3, 'height.em': 3, 'margin-top.em': 5 }"></svg-icon>
         <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
             <div class="parts">
@@ -277,16 +283,32 @@
                  <!-- Modal content-->
                  <div class="modal-content">
                     <div class="modal-body">
-                       <img src="../../assets/wechat.jpg">
-                       <p>Email: xxxxx@gmail.com</p>
-                       <p>Phone: 1-647-782-2427</p>
-                       <div> Get in touch with us</div>
+                      <div class="title"> Get in touch with us</div>
                       <form class="form-inline md-form form-sm">
-                        <input placeholder="name" class="form-control form-control-sm ml-3 w-75" type="text">
-                        <input placeholder="E-mail" class="form-control form-control-sm ml-3 w-75" type="text">
-                        <input placeholder="Message" class="form-control form-control-sm ml-3 w-75" type="text">
+                        <input [formControl]="name" placeholder="name" class="form-control form-control-sm ml-3 w-75" type="text">
+                        <input [formControl]="email" placeholder="E-mail" class="form-control form-control-sm ml-3 w-75" type="text">
+                        <input [formControl]="msg" placeholder="Message" class="form-control form-control-sm ml-3 w-75" type="text">
                       </form>
-                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <div>
+                          <button class="btn" (click)="sendMsg()">send</button>
+                      </div>
+
+                      <div class="contact">
+                          <p>Email: nanodesign666@gmail.com</p>
+                          <p>Phone: 1-647-782-2427</p>
+                      </div>
+                       
+                       <div class="wechat">
+                          <svg-icon src="../../assets/wechat.svg" [svgStyle]="{ 'width.em': 0.7,'height.em':  0.7 }"></svg-icon>
+                         <img src="../../assets/wechat.jpg">
+                       </div>
+                       <div class="instagram">
+                          <svg-icon src="../../assets/instagram.svg" [svgStyle]="{ 'width.em':  0.7,'height.em':  0.7 }"></svg-icon>
+                          <p>nanopcdesign</p>
+                       </div>
+                       <div>
+                          <button class="btn" data-dismiss="modal">Close</button>
+                      </div>                       
                     </div>
                  </div>
               </div>
@@ -300,6 +322,12 @@
   <div *ngIf="mobile" class="section">
     <section class="options">
       <div class="result-options">
+          <div class="switch-tab">
+              <div (click)="changeRequire('basic')" [ngClass]="{'onSwitch': requirement === 'basic'}" >{{'MINIMUN' | translate}}</div>
+              <div (click)="changeRequire('Premium')" [ngClass]="{'onSwitch': requirement === 'Premium'}" >{{'RECOMEND' | translate}}</div>
+              <div (click)="changeRequire('Esports')" [ngClass]="{'onSwitch': requirement === 'Esports'}">{{'PREMIUM' | translate}}</div>
+        </div>
+
         <svg-icon [@loadAnimation] *ngIf="loading === 'load'" src="../../assets/loading.svg" [svgStyle]="{ 'width.em': 3, 'height.em': 3, 'margin-top.em': 5 }"></svg-icon>
         <div [@loadAnimation] *ngIf="loading === 'init'" class="configuration">
             <div class="parts">
@@ -402,23 +430,42 @@
           <!-- Button trigger modal -->
 
 <button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">{{'CONTACT_US' | translate}}</button>
-          <div class="modal fade" id="myModal" role="dialog" style="position: absolute;;">
-              <div class="modal-dialog">
+<div class="modal fade" id="myModal" role="dialog" style="position: absolute;;">
+    <div class="modal-dialog">
 
-                 <!-- Modal content-->
-                 <div class="modal-content">
-                    <div class="modal-body">
-                       <img src="../../assets/wechat.jpg">
-                       <p>Email: xxxxx@gmail.com</p>
-                       <p>Phone: 1-647-782-2427</p>
-                       <div> Follow us on</div>
-                    </div>
-                    <div class="modal-footer">
-                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                 </div>
-              </div>
-           </div>
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+            <div class="title"> Get in touch with us</div>
+            <form class="form-inline md-form form-sm">
+              <input [formControl]="name" placeholder="name" class="form-control form-control-sm ml-3 w-75" type="text">
+              <input [formControl]="email" placeholder="E-mail" class="form-control form-control-sm ml-3 w-75" type="text">
+              <input [formControl]="msg" placeholder="Message" class="form-control form-control-sm ml-3 w-75" type="text">
+            </form>
+            <div>
+                <button class="btn" (click)="sendMsg()">send</button>
+            </div>
+
+            <div class="contact">
+                <p>Email: nanodesign666@gmail.com</p>
+                <p>Phone: 1-647-782-2427</p>
+            </div>
+             
+             <div class="wechat">
+                <svg-icon src="../../assets/wechat.svg" [svgStyle]="{ 'width.em': 0.7,'height.em':  0.7 }"></svg-icon>
+               <img src="../../assets/wechat.jpg">
+             </div>
+             <div class="instagram">
+                <svg-icon src="../../assets/instagram.svg" [svgStyle]="{ 'width.em':  0.7,'height.em':  0.7 }"></svg-icon>
+                <p>nanopcdesign</p>
+             </div>
+             <div>
+                <button class="btn" data-dismiss="modal">Close</button>
+            </div>                       
+          </div>
+       </div>
+    </div>
+ </div>
     </div>
       </div>
 
