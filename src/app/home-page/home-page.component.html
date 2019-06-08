@@ -163,8 +163,17 @@
               </div>
         </div>
 
-
-        <button [@enterAnimation] (click)="getResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">{{'GET_RESULT' | translate}}</button>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm" style="padding-right: 140px; padding-left: 200px;">
+              <button [@enterAnimation] (click)="getResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">{{'GET_RESULT' | translate}}</button>
+            </div>
+            <div class="col-sm">
+              <button [@enterAnimation] (click)="clearResult()" *ngIf="selectedList.length !== 0" href="#" class="btn-card">{{'CLEAR SELECTIONS' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        
         <!-- <button (click)="scrollToTop(container)">scroll to top</button> -->
         <!-- <button (click)="scrollToBot(container)">scroll to bottom</button> -->
         <form class="custom-form form-inline md-form form-sm">
@@ -269,12 +278,12 @@
                 <div class="parts-title">
                     <span>{{'Power_Supply' | translate}}</span>
                     <p>{{result.psu[0]}}</p>
-                    <p>Total Power: {{result.psu[1]}}W</p>
+                    <p *ngIf="loading === 'result'">{{psu}}</p>
                 </div>
               </div>
         </div>
         <div class="estimate">
-          <h1 *ngIf="loading === 'result'"> {{'ESTIMATE_PRICE' | translate}}: ${{result.price[0]}}</h1>
+          <h1 *ngIf="loading === 'result'"> {{'ESTIMATE_PRICE' | translate}}: ${{result.price[0].toFixed(2)}}</h1>
           <!-- Button trigger modal -->
           <button type="button" class="btn-card" data-backdrop="false" data-toggle="modal" data-target="#myModal">{{'CONTACT_US' | translate}}</button>
           <div class="modal fade" id="myModal" role="dialog" style="position: absolute;;">
@@ -420,7 +429,7 @@
                   <div class="parts-title">
                       <span>{{'Power_Supply' | translate}}</span>
                       <p>{{result.psu[0]}}</p>
-                      <p>Total Power: {{result.psu[1]}}W</p>
+                      <p>{{psu}}</p>
                   </div>
                 </div>
           </div>

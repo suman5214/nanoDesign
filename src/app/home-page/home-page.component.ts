@@ -68,9 +68,10 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
     scrollbar: false,
     navigation: true,
     pagination: false
-  };
+  }
 
   result = { 'cpu' : '', 'gpu': '', 'mem': '', 'price': null, 'psu': [], 'mb': '', 'ssd': '', 'hdd': ''};
+  psu = `Total Power: ${0} W`;
   loading = 'init';
   mobile: boolean;
   constructor(private router: Router, private translate: TranslateService,
@@ -258,6 +259,11 @@ convertRemToPixels(rem: number): number {
   onBlur() {
     this.fullpage_api.rebuild();
   }
+  clearResult() {
+    this.selectedList.length = 0;
+    this.result = { 'cpu' : '', 'gpu': '', 'mem': '', 'price': [0.00], 'psu': [], 'mb': '', 'ssd': '', 'hdd': ''};
+    this.psu  = ``;
+  }
 
   getResult() {
     this.loading = 'load';
@@ -286,7 +292,9 @@ convertRemToPixels(rem: number): number {
         if (key === 'price') {
           this.result[key] = res[key];
         } else if (key === 'psu') {
-          this.result[key] = [res[key][0], res[key][2]] ;
+          console.log([res[key][0], res[key][2]])
+          this.result[key] = [res[key][0], res[key][2]];
+          this.psu = `Total Power: ${res[key][2]} W`;
         } else {
           this.result[key] = res[key][0];
         }

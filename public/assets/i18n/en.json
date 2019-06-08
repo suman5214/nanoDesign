@@ -11,6 +11,7 @@
   "GAME_LIST":"Game",
   "OFFICE_LIST":"Office",
   "GET_RESULT":"GET RESULT",
+  "CLEAR_RESULT": "CLEAR SELECTION",
   "ESTIMATE_PRICE":"Estimate Price",
   "CPU":"CPU",
   "Graphic_card":"Graphic Card",
